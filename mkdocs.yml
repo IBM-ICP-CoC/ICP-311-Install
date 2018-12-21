@@ -1,4 +1,4 @@
-site_name: Installing IBM Cloud Private
+site_name: Installing IBM Cloud Private Wakey
 nav:
     - Home: index.md
     - Creating VMs: createvms.md

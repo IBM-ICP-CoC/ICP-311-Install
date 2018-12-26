@@ -47,13 +47,15 @@ When finished the screen should look like this:
     These values for `host name` and `domain` do not have any affect on the actual host name and domain defined
     inside the virtual machines.  They are just labels and can be changed at any time.
 
-!!! important
-    There are two scripts that will help you prapare your virtual machines for installation of ICP.  
-    [modify_fs_v2.sh](files/modify_fs_v2.sh) will prepare the disks and move the `/var` and `/opt` directories to the two additional disks provisioned when the VMs were created.  
-    [install_prereqs.sh](files/install_prereqs.sh) takes care of installing MOST of what you will need for the prerequisites.
-
 !!! note
     When you chose a quantity greater than 1 your virtual machines may have an added sequence number in their host names.  Don't forget that you can change the names of your virtual machines after they are created.
+
+!!! tip
+    You will need to transfer a very large file to your `master` node.  Once your machines are created, you can initiate this transfer.  You will need to know the password for `root`, which you can get from the `Passwords` tab on the `Device Details` page.
+
+    To transfer the file open a terminal window on your host machine, navigate to the directory where the file is stored and execute this command:
+
+    `scp ibm-cloud-private-x86_64-3.1.1.tar.gz root@<your Master node IP>:/tmp`
 
 When your machines are provisioned it will be helpful for you to collect some information together that you will need later.  The table below is an example of what you should collect.  The hostnames can be whatever values you want.  The passwords are for the `root` user and can be obtained on the `Passwords` tab of the Details page for your device.
 

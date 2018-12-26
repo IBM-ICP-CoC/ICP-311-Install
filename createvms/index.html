@@ -129,11 +129,55 @@
 <p class="admonition-title">Tip</p>
 <p>You can create all 5 VMs at the same time with the same configuration by using the <code>Quantity</code> field on the order page.</p>
 </div>
+<p>To create virtual machines:</p>
+<ul>
+<li>Login to your <a href="https://cloud.ibm.com">IBM Cloud</a> account.</li>
+<li>Click the <code>Create Resource</code> button on the Dashboard page</li>
+<li>Click the Virtual Server tile.<br />
+<img alt="virtual server" src="../images/virtualserver.png" /></li>
+<li>Specify the following settings for your Virtual Server Instance:<ul>
+<li>The <code>Public Virtual Server</code> tile should be selected; click <code>Continue</code>.</li>
+<li>Choose <code>Public</code> as the type of virtual server</li>
+<li>Set the <code>Quantity</code> to <code>5</code></li>
+<li>Specify values for <code>Host Name</code> and <code>Domain</code></li>
+<li>Choose the location and data center of your choice</li>
+<li>Choose the <code>Balanced B1.8x16</code> profile.  You many need to choose the <code>All Profiles</code> tab to find it.</li>
+<li>Choose <code>Red Hat</code> as the Image (take the default <code>7.x Minimal (64-bit) - HVM</code>).  Make sure you actually cick the <code>Red Hat</code> box and that it has a blue outline and the blue checkmark.</li>
+<li>In the <code>Attached Storage Disks</code> section, click the <code>Add New</code> button twice to create two new disks, named <code>Disk 1</code> and <code>Disk 2</code></li>
+<li>change the size of the disks:<ul>
+<li><code>Boot Disk</code> to <code>100 GB</code></li>
+<li><code>Disk 1</code> to <code>200 GB</code></li>
+<li><code>Disk 2</code> to <code>500 GB</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>When finished the screen should look like this:</p>
+<p><img alt="" src="../images/virtualserverinstance1.png" />
+<img alt="" src="../images/virtualserverinstance2.png" />
+<img alt="" src="../images/virtualserverinstance3.png" /></p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Do we need to choose a private VLAN to ensure that all of the machines can talk to each other? DAW</p>
+</div>
+<ul>
+<li>Click the checkbox to acknowledge that you have read and agree to the third party agreements and click <code>Create</code>.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These values for <code>host name</code> and <code>domain</code> do not have any affect on the actual host name and domain defined
+inside the virtual machines.  They are just labels and can be changed at any time.</p>
+</div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>There are two scripts that will help you prapare your virtual machines for installation of ICP.<br />
 <a href="../files/modify_fs_v2.sh">modify_fs_v2.sh</a> will prepare the disks and move the <code>/var</code> and <code>/opt</code> directories to the two additional disks provisioned when the VMs were created.<br />
 <a href="../files/install_prereqs.sh">install_prereqs.sh</a> takes care of installing MOST of what you will need for the prerequisites.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you chose a quantity greater than 1 your virtual machines may have an added sequence number in their host names.  Don't forget that you can change the names of your virtual machines after they are created.</p>
 </div>
 <p>When your machines are provisioned it will be helpful for you to collect some information together that you will need later.  The table below is an example of what you should collect.  The hostnames can be whatever values you want.  The passwords are for the <code>root</code> user and can be obtained on the <code>Passwords</code> tab of the Details page for your device.</p>
 <table>

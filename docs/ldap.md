@@ -2,6 +2,9 @@
 
 You can run the LDAP server on any one of the nodes, but I would suggest you run it either on the master or boot node. I choose to run this on a separate stand alone server. All it requires is that docker is installed.  
 
+!!! warning
+    If you plan in [Customizing the cluster access URL](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/user_management/custom_url.html) you should configure that BEFORE you configure any LDAP connections.  
+
 Create two new directories:
 
 `mkdir -p /opt/openldap/slapd.d`

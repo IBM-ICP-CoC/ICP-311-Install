@@ -4,6 +4,7 @@ nav:
     - Creating VMs: createvms.md
     - Setup on All VMs: setupall.md
     - Installation: installicp.md
+    - Using a custom URL: customurl.md
     - Installing and Configuring LDAP: ldap.md
 
 theme: readthedocs

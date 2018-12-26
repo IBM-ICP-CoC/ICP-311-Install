@@ -30,7 +30,9 @@
 
 - Move the image files  (DAW:  Do we really need to do this?)
 
-`mv /opt/icp/311/ibm-cloud-private-x86_64-3.1.1.tar.gz  /opt/icp311/cluster/images/`
+`mkdir /opt/icp311/cluster/images`
+
+`mv ibm-cloud-private-x86_64-3.1.1.tar.gz cluster/images`
 
 - Copy the SSH Key to the keys (run this command from the `/opt/icp311` directory)
 
@@ -55,6 +57,9 @@
 [va]
 <your-va-ip>
 ```
+
+!!! warning
+    The default hosts file has the `management` and `va` sections commented out.  Be sure to remove the `#` comment markers or your install will fail!!  Also, remove the line with the three dots `...` in the `[worker]` section.
 
 - Edit `cluster/config.yaml` file for custom settings
 

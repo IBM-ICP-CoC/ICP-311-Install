@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Installation - Installing IBM Cloud Private Wakey</title>
+  <title>Installation - Installing IBM Cloud Private</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -36,7 +36,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> Installing IBM Cloud Private Wakey</a>
+        <a href=".." class="icon icon-home"> Installing IBM Cloud Private</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -63,11 +63,6 @@
     <a class="" href="../setupall/">Setup on All VMs</a>
 	    </li>
           
-            <li class="toctree-l1">
-		
-    <a class="" href="../master/">Setup on Boot/Master/Proxy</a>
-	    </li>
-          
             <li class="toctree-l1 current">
 		
     <a class="current" href="./">Installation</a>
@@ -79,7 +74,7 @@
         
             <li><a class="toctree-l3" href="#overview">overview</a></li>
         
-            <li><a class="toctree-l3" href="#directions">directions</a></li>
+            <li><a class="toctree-l3" href="#unpack-the-installer">Unpack the installer</a></li>
         
         </ul>
     
@@ -102,7 +97,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">Installing IBM Cloud Private Wakey</a>
+        <a href="..">Installing IBM Cloud Private</a>
       </nav>
 
       
@@ -125,8 +120,87 @@
             <div class="section">
               
                 <h1 id="install-ibm-cloud-private">Install IBM Cloud Private</h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The rest of the installation will take place only on the Master node.  At this time you should <code>ssh</code> into your master node as <code>root</code>.</p>
+</div>
 <h2 id="overview">overview</h2>
-<h2 id="directions">directions</h2>
+<h2 id="unpack-the-installer">Unpack the installer</h2>
+<ul>
+<li>Inside of the virtual machine for your master node, create a new directory called <code>/opt/icp311</code></li>
+<li>in a terminal window on your laptop, execute this command:</li>
+</ul>
+<p><code>scp ibm-cloud-private-x86_64-3.1.1.tar.gz root@&lt;your-master-node-ip&gt;:/opt/icp311</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have already transferred it the file will be in <code>/tmp</code> so you can use this command instead:
+<code>mv /tmp/ibm-cloud-private-x86_64-3.1.1.tar.gz /opt/icp311</code></p>
+</div>
+<ul>
+<li>Expand the tarball (from <code>/opt/icp311</code> directory)</li>
+</ul>
+<p><code>/usr/bin/tar xf ibm-cloud-private-x86_64-3.1.1.tar.gz -O | docker load</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This command may take several minutes to run</p>
+</div>
+<ul>
+<li>Create inception (run the docker image from the <code>/opt/icp311</code> directory)</li>
+</ul>
+<p><code>docker run -v $(pwd):/data -e LICENSE=accept ibmcom/icp-inception-amd64:3.1.1-ee cp -r cluster /data</code></p>
+<ul>
+<li>Move the image files  (DAW:  Do we really need to do this?)</li>
+</ul>
+<p><code>mv /opt/icp/311/ibm-cloud-private-x86_64-3.1.1.tar.gz  /opt/icp311/cluster/images/</code></p>
+<ul>
+<li>Copy the SSH Key to the keys (run this command from the <code>/opt/icp311</code> directory)</li>
+</ul>
+<p><code>cp ~/.ssh/id_rsa ./cluster/ssh_key</code></p>
+<ul>
+<li>Edit the <code>hosts</code> file (found in the <code>/opt/icp311/cluster</code> directory)</li>
+</ul>
+<pre><code>[master]
+&lt;your-master-ip&gt;
+
+[worker]
+&lt;your-worker1-ip&gt;
+&lt;your-worker2-ip&gt;
+
+[proxy]
+&lt;your-master-ip&gt;
+
+[management]
+&lt;your-management-ip&gt;
+
+[va]
+&lt;your-va-ip&gt;
+</code></pre>
+
+<ul>
+<li>Edit <code>cluster/config.yaml</code> file for custom settings</li>
+</ul>
+<pre><code>## Advanced Settings
+default_admin_user: admin
+default_admin_password: &lt;set your admin password here&gt;
+
+management_services:
+ vulnerability-advisor: enabled
+</code></pre>
+
+<ul>
+<li>as <code>root</code> run the installer (from the <code>/opt/icp311/cluster</code> directory)</li>
+</ul>
+<p><code>docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee install</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If all goes well your install will finish successfully and you will be good to go.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the install fails you need to run the uninstall command before you run the installer again.
+<code>docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee uninstall</code></p>
+</div>
+<p>Happy hosting!</p>
               
             </div>
           </div>
@@ -137,7 +211,7 @@
         <a href="../ldap/" class="btn btn-neutral float-right" title="Installing and Configuring LDAP">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../master/" class="btn btn-neutral" title="Setup on Boot/Master/Proxy"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../setupall/" class="btn btn-neutral" title="Setup on All VMs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -163,7 +237,7 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../master/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../setupall/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../ldap/" style="color: #fcfcfc">Next &raquo;</a></span>

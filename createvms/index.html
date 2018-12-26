@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Creating VMs - Installing IBM Cloud Private Wakey</title>
+  <title>Creating VMs - Installing IBM Cloud Private</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -36,7 +36,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> Installing IBM Cloud Private Wakey</a>
+        <a href=".." class="icon icon-home"> Installing IBM Cloud Private</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -71,11 +71,6 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="../master/">Setup on Boot/Master/Proxy</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
     <a class="" href="../installicp/">Installation</a>
 	    </li>
           
@@ -94,7 +89,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">Installing IBM Cloud Private Wakey</a>
+        <a href="..">Installing IBM Cloud Private</a>
       </nav>
 
       
@@ -169,15 +164,15 @@
 <p>These values for <code>host name</code> and <code>domain</code> do not have any affect on the actual host name and domain defined
 inside the virtual machines.  They are just labels and can be changed at any time.</p>
 </div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>There are two scripts that will help you prapare your virtual machines for installation of ICP.<br />
-<a href="../files/modify_fs_v2.sh">modify_fs_v2.sh</a> will prepare the disks and move the <code>/var</code> and <code>/opt</code> directories to the two additional disks provisioned when the VMs were created.<br />
-<a href="../files/install_prereqs.sh">install_prereqs.sh</a> takes care of installing MOST of what you will need for the prerequisites.</p>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When you chose a quantity greater than 1 your virtual machines may have an added sequence number in their host names.  Don't forget that you can change the names of your virtual machines after they are created.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You will need to transfer a very large file to your <code>master</code> node.  Once your machines are created, you can initiate this transfer.  You will need to know the password for <code>root</code>, which you can get from the <code>Passwords</code> tab on the <code>Device Details</code> page.</p>
+<p>To transfer the file open a terminal window on your host machine, navigate to the directory where the file is stored and execute this command:</p>
+<p><code>scp ibm-cloud-private-x86_64-3.1.1.tar.gz root@&lt;your Master node IP&gt;:/tmp</code></p>
 </div>
 <p>When your machines are provisioned it will be helpful for you to collect some information together that you will need later.  The table below is an example of what you should collect.  The hostnames can be whatever values you want.  The passwords are for the <code>root</code> user and can be obtained on the <code>Passwords</code> tab of the Details page for your device.</p>
 <table>

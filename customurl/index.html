@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Installing and Configuring LDAP - Installing IBM Cloud Private</title>
+  <title>Using a custom URL - Installing IBM Cloud Private</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Installing and Configuring LDAP";
-    var mkdocs_page_input_path = "ldap.md";
+    var mkdocs_page_name = "Using a custom URL";
+    var mkdocs_page_input_path = "customurl.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -68,20 +68,20 @@
     <a class="" href="../installicp/">Installation</a>
 	    </li>
           
-            <li class="toctree-l1">
-		
-    <a class="" href="../customurl/">Using a custom URL</a>
-	    </li>
-          
             <li class="toctree-l1 current">
 		
-    <a class="current" href="./">Installing and Configuring LDAP</a>
+    <a class="current" href="./">Using a custom URL</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#installing-and-configuring-ldap">Installing and Configuring LDAP</a></li>
+    <li class="toctree-l2"><a href="#customizing-the-cluster-access-url">Customizing the cluster access URL</a></li>
     
 
     </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../ldap/">Installing and Configuring LDAP</a>
 	    </li>
           
         </ul>
@@ -106,7 +106,7 @@
     
       
     
-    <li>Installing and Configuring LDAP</li>
+    <li>Using a custom URL</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -116,26 +116,13 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="installing-and-configuring-ldap">Installing and Configuring LDAP</h1>
-<p>You can run the LDAP server on any one of the nodes, but I would suggest you run it either on the master or boot node. I choose to run this on a separate stand alone server. All it requires is that docker is installed.  </p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>If you plan in <a href="https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/user_management/custom_url.html">Customizing the cluster access URL</a> you should configure that BEFORE you configure any LDAP connections.  </p>
+                <h1 id="customizing-the-cluster-access-url">Customizing the cluster access URL</h1>
+<p>You can get your own domain name from IBM Cloud.  Once it gets created you can add an <code>A</code> record for your ICP environment.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Capture the steps to do this including screen shots</p>
 </div>
-<p>Create two new directories:</p>
-<p><code>mkdir -p /opt/openldap/slapd.d</code></p>
-<p><code>mkdir -p /opt/openldap/ldap</code></p>
-<pre><code>docker run -d -e DOMAIN=mycluster.icp --net=host --name=openldap \--restart unless-stopped \
--v /opt/openldap/ldap:/var/lib/ldap \
--v /opt/openldap/slapd.d:/etc/ldap/slapd.d \
-siji/openldap:2.4.42
-</code></pre>
-
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The command above will run a docker image containing LDAP and set it to automatically restart if the virtual machine is restarted.</p>
-</div>
-<p>Directions for configuring LDAP can be found <a href="https://ibm.ent.box.com/s/6q6h74cdx5zkd0t7y2rhohaiujo99a4u">here</a>.</p>
+<p>To use a custom URL for your cluster follow the instructions <a href="https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/user_management/custom_url.html">here</a></p>
               
             </div>
           </div>
@@ -143,8 +130,10 @@ siji/openldap:2.4.42
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../ldap/" class="btn btn-neutral float-right" title="Installing and Configuring LDAP">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-        <a href="../customurl/" class="btn btn-neutral" title="Using a custom URL"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+        <a href="../installicp/" class="btn btn-neutral" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -170,8 +159,10 @@ siji/openldap:2.4.42
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../customurl/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../installicp/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
+      
+        <span style="margin-left: 15px"><a href="../ldap/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

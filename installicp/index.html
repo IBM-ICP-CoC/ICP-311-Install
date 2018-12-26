@@ -84,6 +84,11 @@
           
             <li class="toctree-l1">
 		
+    <a class="" href="../customurl/">Using a custom URL</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
     <a class="" href="../ldap/">Installing and Configuring LDAP</a>
 	    </li>
           
@@ -151,7 +156,8 @@
 <ul>
 <li>Move the image files  (DAW:  Do we really need to do this?)</li>
 </ul>
-<p><code>mv /opt/icp/311/ibm-cloud-private-x86_64-3.1.1.tar.gz  /opt/icp311/cluster/images/</code></p>
+<p><code>mkdir /opt/icp311/cluster/images</code></p>
+<p><code>mv ibm-cloud-private-x86_64-3.1.1.tar.gz cluster/images</code></p>
 <ul>
 <li>Copy the SSH Key to the keys (run this command from the <code>/opt/icp311</code> directory)</li>
 </ul>
@@ -176,6 +182,10 @@
 &lt;your-va-ip&gt;
 </code></pre>
 
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The default hosts file has the <code>management</code> and <code>va</code> sections commented out.  Be sure to remove the <code>#</code> comment markers or your install will fail!!  Also, remove the line with the three dots <code>...</code> in the <code>[worker]</code> section.</p>
+</div>
 <ul>
 <li>Edit <code>cluster/config.yaml</code> file for custom settings</li>
 </ul>
@@ -208,7 +218,7 @@ management_services:
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../ldap/" class="btn btn-neutral float-right" title="Installing and Configuring LDAP">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../customurl/" class="btn btn-neutral float-right" title="Using a custom URL">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../setupall/" class="btn btn-neutral" title="Setup on All VMs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -240,7 +250,7 @@ management_services:
         <span><a href="../setupall/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../ldap/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../customurl/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

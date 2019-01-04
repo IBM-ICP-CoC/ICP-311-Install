@@ -72,8 +72,6 @@
     
         <ul>
         
-            <li><a class="toctree-l3" href="#overview">overview</a></li>
-        
             <li><a class="toctree-l3" href="#unpack-the-installer">Unpack the installer</a></li>
         
         </ul>
@@ -129,22 +127,25 @@
 <p class="admonition-title">Note</p>
 <p>The rest of the installation will take place only on the Master node.  At this time you should <code>ssh</code> into your master node as <code>root</code>.</p>
 </div>
-<h2 id="overview">overview</h2>
 <h2 id="unpack-the-installer">Unpack the installer</h2>
 <ul>
 <li>Inside of the virtual machine for your master node, create a new directory called <code>/opt/icp311</code></li>
 <li>in a terminal window on your laptop, execute this command:</li>
 </ul>
-<p><code>scp ibm-cloud-private-x86_64-3.1.1.tar.gz root@&lt;your-master-node-ip&gt;:/opt/icp311</code></p>
+<pre><code>scp ibm-cloud-private-x86_64-3.1.1.tar.gz root@&lt;your-master-node-ip&gt;:/opt/icp311
+</code></pre>
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you have already transferred it the file will be in <code>/tmp</code> so you can use this command instead:
-<code>mv /tmp/ibm-cloud-private-x86_64-3.1.1.tar.gz /opt/icp311</code></p>
+<p>If you have already transferred it the file will be in <code>/tmp</code> so you can use this command instead:</p>
+<p><code>mv /tmp/ibm-cloud-private-x86_64-3.1.1.tar.gz /opt/icp311</code></p>
 </div>
 <ul>
 <li>Expand the tarball (from <code>/opt/icp311</code> directory)</li>
 </ul>
-<p><code>/usr/bin/tar xf ibm-cloud-private-x86_64-3.1.1.tar.gz -O | docker load</code></p>
+<pre><code>/usr/bin/tar xf ibm-cloud-private-x86_64-3.1.1.tar.gz -O | docker load
+</code></pre>
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This command may take several minutes to run</p>
@@ -152,11 +153,26 @@
 <ul>
 <li>Create inception (run the docker image from the <code>/opt/icp311</code> directory)</li>
 </ul>
-<p><code>docker run -v $(pwd):/data -e LICENSE=accept ibmcom/icp-inception-amd64:3.1.1-ee cp -r cluster /data</code></p>
+<pre><code>docker run -v $(pwd):/data -e LICENSE=accept ibmcom/icp-inception-amd64:3.1.1-ee cp -r cluster /data
+</code></pre>
+
+<ul>
+<li>
+<p>Move the image files for your cluster to the <code>/&lt;installation_directory&gt;/cluster/images</code> folder.</p>
+</li>
+<li>
+<p>Create a new folder under the /cluster directory called <code>images</code>. </p>
+</li>
+</ul>
+<pre><code>mv ibm-cloud-private-x86_64-3.1.1.tar.gz  cluster/images/
+</code></pre>
+
 <ul>
 <li>Copy the SSH Key to the keys (run this command from the <code>/opt/icp311</code> directory)</li>
 </ul>
-<p><code>cp ~/.ssh/id_rsa ./cluster/ssh_key</code></p>
+<pre><code>cp ~/.ssh/id_rsa ./cluster/ssh_key
+</code></pre>
+
 <ul>
 <li>Edit the <code>hosts</code> file (found in the <code>/opt/icp311/cluster</code> directory)</li>
 </ul>
@@ -193,18 +209,22 @@ management_services:
 </code></pre>
 
 <ul>
-<li>as <code>root</code> run the installer (from the <code>/opt/icp311/cluster</code> directory)</li>
+<li>As <code>root</code> run the installer (from the <code>/opt/icp311/cluster</code> directory)</li>
 </ul>
-<p><code>docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee install</code></p>
+<pre><code>docker run --net=host -t -e LICENSE=accept -v &quot;$(pwd)&quot;:/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee install
+</code></pre>
+
 <div class="admonition success">
 <p class="admonition-title">Success</p>
 <p>If all goes well your install will finish successfully and you will be good to go.</p>
 </div>
 <div class="admonition failure">
 <p class="admonition-title">Failure</p>
-<p>If the install fails you need to run the uninstall command before you run the installer again.
-<code>docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee uninstall</code></p>
+<p>If the install fails you need to run the uninstall command before you run the installer again.</p>
 </div>
+<pre><code>    docker run --net=host -t -e LICENSE=accept -v &quot;$(pwd)&quot;:/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee uninstall
+</code></pre>
+
 <p>Happy hosting!</p>
               
             </div>

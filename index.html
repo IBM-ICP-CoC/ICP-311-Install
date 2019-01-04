@@ -124,11 +124,25 @@
               
                 <h1 id="installing-ibm-cloud-private-in-ibm-cloud-virtual-machines">Installing IBM Cloud Private in IBM Cloud Virtual Machines</h1>
 <p>This document will walk you through the steps needed to create virtual machines in IBM Cloud and use them to run IBM Cloud Private. It should be noted that the instructions on this site were captured while configuring and installing on RHEL virtual servers hosted on IBM Cloud (Softlayer). Some of the server setup steps may vary if you are attempting to provision virtual servers in another cloud provider or if you are installing on a different OS. </p>
+<p>In this example, we will be installing Docker EE and ICP 3.1.1 Enterprise edtion on RHEL. The docker EE edition is install file is included with the download of ICP 3.1.1. These are the files you will need. </p>
+<ul>
+<li>ibm-cloud-private-x86_64-3.1.1.tar.gz  </li>
+<li>icp-docker-18.03.1_x86_64.bin</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are an IBM'er, you can download the install files from the <a href="https://w3-03.ibm.com/software/xl/download/ticket.wss">Software Sellerrs Workplace</a>. </p>
+<p>You will need to log in and do a search for <strong><em>IBM Cloud Private 3.1.1</em></strong>. 
+The package assembly you need to look for is: <strong>IBM Cloud Private Installation Packages eAssembly  (CJ4MTEN)</strong></p>
+<p>IBM Cloud Private 3.1.1 for Linux (x86_64) Docker (CNXC8EN)</p>
+<p>IBM Cloud Private 3.1.1 Docker for Linux (x86_64) (CNXD2EN)</p>
+</div>
 <h2 id="acknowledgments">Acknowledgments</h2>
 <ul>
-<li>Dave Wakeman (Public) &amp; Dave Krier (Distribution) are the authors of this install guide. </li>
+<li>Dave Wakeman (Public) &amp; Dave Krier (Dist) are the authors of this install guide. </li>
 <li>Dave Weilert (COC Team) was the pioneer who documented the install process and perfected all the pre-req steps.</li>
-<li>Jim Conallen (COC Team) authored the LDAP setup and configuration guide.  </li>
+<li>Jim Conallen (COC Team) authored the LDAP setup and configuration guide. </li>
+<li>Tom Watson (Dist) testing and adding comments.</li>
 </ul>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -182,5 +196,5 @@
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2019-01-04 16:28:13
+Build Date UTC : 2019-01-04 17:58:48
 -->

@@ -1,5 +1,6 @@
 # Create the Virtual Machines
 
+
 Provision 5 virtual machines with this configuration:
 
 - RHEL Minimal (7.x)
@@ -38,9 +39,6 @@ When finished the screen should look like this:
 ![](images/virtualserverinstance2.png)
 ![](images/virtualserverinstance3.png)
 
-!!! danger
-    Do we need to choose a private VLAN to ensure that all of the machines can talk to each other? DAW
-
 - Click the checkbox to acknowledge that you have read and agree to the third party agreements and click `Create`.
 
 !!! note
@@ -48,7 +46,7 @@ When finished the screen should look like this:
     inside the virtual machines.  They are just labels and can be changed at any time.
 
 !!! note
-    When you chose a quantity greater than 1 your virtual machines may have an added sequence number in their host names.  Don't forget that you can change the names of your virtual machines after they are created.
+    When you chose a quantity greater than 1 your virtual machines may have an added sequence number in their host names.  Don't forget that you can change the names of your virtual machines after they are created. The name of your VM's in the IBM Cloud Infrastructure section are just for your own reference. It's best practice to name each of them with some indication on what role they will play in your cluster, such as (master, mgmt, worker, va, proxy)
 
 !!! tip
     You will need to transfer a very large file to your `master` node.  Once your machines are created, you can initiate this transfer.  You will need to know the password for `root`, which you can get from the `Passwords` tab on the `Device Details` page.
@@ -56,6 +54,8 @@ When finished the screen should look like this:
     To transfer the file open a terminal window on your host machine, navigate to the directory where the file is stored and execute this command:
 
     `scp ibm-cloud-private-x86_64-3.1.1.tar.gz root@<your Master node IP>:/tmp`
+
+    The scp command is the `Secure File Transfer` command. 
 
 When your machines are provisioned it will be helpful for you to collect some information together that you will need later.  The table below is an example of what you should collect.  The hostnames can be whatever values you want.  The passwords are for the `root` user and can be obtained on the `Passwords` tab of the Details page for your device.
 
@@ -68,4 +68,4 @@ When your machines are provisioned it will be helpful for you to collect some in
 | Worker2           | my-icp-worker2 | xxx.xxx.xxx.xxx | xxxxxxxx |
 
 !!! note
-    You should use the Public IPs for your virtual machines.
+    I recommend you use the Public IPs for all your virtual machines. You can use the Private IP for everything except the PROXY node if you really want to, but you must be consistent in all the next steps for everything to work properly. 

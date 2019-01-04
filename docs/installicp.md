@@ -28,12 +28,6 @@
 
 `docker run -v $(pwd):/data -e LICENSE=accept ibmcom/icp-inception-amd64:3.1.1-ee cp -r cluster /data`
 
-- Move the image files  (DAW:  Do we really need to do this?)
-
-`mkdir /opt/icp311/cluster/images`
-
-`mv ibm-cloud-private-x86_64-3.1.1.tar.gz cluster/images`
-
 - Copy the SSH Key to the keys (run this command from the `/opt/icp311` directory)
 
 `cp ~/.ssh/id_rsa ./cluster/ssh_key`
@@ -76,10 +70,10 @@ management_services:
 
 `docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee install`
 
-!!! note
+!!! success
     If all goes well your install will finish successfully and you will be good to go.
 
-!!! warning
+!!! failure
     If the install fails you need to run the uninstall command before you run the installer again.
     `docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee uninstall`
 

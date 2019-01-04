@@ -21,5 +21,5 @@ siji/openldap:2.4.42
     The command above will run a docker image containing LDAP and set it to automatically restart if the virtual machine is restarted.
 
 
-
+THANK YOU to Jim Conallen, for the following documentation!! 
 Directions for configuring LDAP can be found [here](https://ibm.ent.box.com/s/6q6h74cdx5zkd0t7y2rhohaiujo99a4u).

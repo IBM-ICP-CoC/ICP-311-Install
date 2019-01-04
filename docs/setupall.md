@@ -6,6 +6,7 @@ To install IBM Cloud Private you first need to prepare all of your virtual machi
     There are two scripts that will help you prapare your virtual machines for installation of ICP.  
     [modify_fs_v2.sh](files/modify_fs_v2.sh) will prepare the disks and move the `/var` and `/opt` directories to the two additional disks provisioned when the VMs were created.  
     [install_prereqs.sh](files/install_prereqs.sh) takes care of installing MOST of what you will need for the prerequisites.
+    I would encourage you to look at the contents of these scripts to understand what they do. It should also be noted that they are specific to RHEL, so if your using another OS, such as Ubuntu you will have to perform these steps manually using the proper os commands. 
 
 #Install Prerequisites
 
@@ -49,7 +50,7 @@ systemctl stop firewalld
 
 #Update the hosts file
 
-Make sure that the `/etc/hosts` file on each virtual machine has entries for all of the other virtual machines so that they can talk to each other
+Make sure that the `/etc/hosts` file on each virtual machine has entries for all of the other virtual machines so that they can talk to each other. Take note of what your host names are, you will need them in the following steps. 
 
 
 #Setup SSH keys
@@ -58,7 +59,10 @@ Make sure that the `/etc/hosts` file on each virtual machine has entries for all
 
 `cd /root ;ssh-keygen -b 4096 -f /root/.ssh/id_rsa -N "" ;cat ~/.ssh/id_rsa.pub | sudo tee -a ~/.ssh/authorized_keys`
 
-##Copy the key to each of the other nodes
+##Copy the key to each of the other nodes 
+
+Don't just copy these commands below, they are for example ONLY. You need to edit the host names at the end of each of these commands. You will need to run ALL of these commands to copy the SSH key from the current VM to all the rest of the VM's in the cluster. We are sharing the SSH keys, so that the install script can SSH into the other boxes without authentication. 
+
 `ssh-copy-id -i .ssh/id_rsa.pub root@dak311master`
 
 `ssh-copy-id -i .ssh/id_rsa.pub root@dak311mgmt`
@@ -69,3 +73,13 @@ Make sure that the `/etc/hosts` file on each virtual machine has entries for all
 
 `ssh-copy-id -i .ssh/id_rsa.pub root@dak311worker2`
 
+##Test the SSH keys
+
+You can perform a simple test to ensure that the SSH keys are setup correctly. At this point you should be able to SSH into any one of the VM's from any one of the VM's. Try it out and spot check the SSH keys. 
+
+As an example:  I am logged into the master node. I should be able to type this command below and log directly into the worker1 node without any authentication propts. The example below assumes the host name for worker1 is dak311worker1, yours may be different. 
+
+`ssh dak311worker1`
+
+!!! success
+    You should now see that your logged into the worker 1 node and you didn't see any prompts for userid or password. 

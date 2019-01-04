@@ -80,6 +80,20 @@
             
     <li class="toctree-l2"><a href="#installing-and-configuring-ldap">Installing and Configuring LDAP</a></li>
     
+        <ul>
+        
+            <li><a class="toctree-l3" href="#introduction">Introduction</a></li>
+        
+            <li><a class="toctree-l3" href="#installation">Installation</a></li>
+        
+            <li><a class="toctree-l3" href="#configuring-users-and-groups">Configuring Users and Groups</a></li>
+        
+            <li><a class="toctree-l3" href="#configure-icp">Configure ICP</a></li>
+        
+            <li><a class="toctree-l3" href="#create-a-team">Create a Team</a></li>
+        
+        </ul>
+    
 
     </ul>
 	    </li>
@@ -117,26 +131,98 @@
             <div class="section">
               
                 <h1 id="installing-and-configuring-ldap">Installing and Configuring LDAP</h1>
+<p><strong>THANK YOU</strong>  to Jim Conallen, for the following documentation!! </p>
+<p>Est. Time: 15 min.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The original directions for configuring LDAP written my Jim Conallen can be found <a href="https://ibm.ent.box.com/s/6q6h74cdx5zkd0t7y2rhohaiujo99a4u">here</a>.</p>
+</div>
+<h2 id="introduction">Introduction</h2>
+<p>This document describes how to use setup OpenLDAP on a Linux node that is either part of an ICP cluster, or has visibility to and from the cluster.  It uses the Docker image siji/openldap:2.4.42 which is a multi-arch image with an OpenLDAP server, and a web based administrative console.  This document describes how to install and setup a few users and groups that can then brought into ICP teams.</p>
 <p>You can run the LDAP server on any one of the nodes, but I would suggest you run it either on the master or boot node. I choose to run this on a separate stand alone server. All it requires is that docker is installed.  </p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If you plan in <a href="https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/user_management/custom_url.html">Customizing the cluster access URL</a> you should configure that BEFORE you configure any LDAP connections.  </p>
 </div>
-<p>Create two new directories:</p>
+<h2 id="installation">Installation</h2>
+<p>The VM that will run OpenLDAP must have docker installed.  If it does not have visibility to DockerHub to directly pull the image siji/openldap:2.4.42, then you will have to save the image to a file and copy it image from another machine that does with the <a href="https://docs.docker.com/engine/reference/commandline/image_save/">docker image save</a> and <a href="https://docs.docker.com/engine/reference/commandline/image_load/">docker image load</a> commands.</p>
+<p>To ensure persistence across reboots you will need two dedicated directories on the VM hosting OpenLDAP, one for /etc/ldap/slapd.d and /var/lib/ldap.  Create directories in /var/openldap for these with the commands:</p>
 <p><code>mkdir -p /opt/openldap/slapd.d</code></p>
 <p><code>mkdir -p /opt/openldap/ldap</code></p>
+<p>With the image in the local registry (or if the machine has visibility to DockerHub), run the following command.  You can change DOMAIN to match the cluster name and domain of the ICP cluster that you will connect to, but this is option and only makes sense if this ldap is used with only that one cluster.</p>
 <pre><code>docker run -d -e DOMAIN=mycluster.icp --net=host --name=openldap \--restart unless-stopped \
 -v /opt/openldap/ldap:/var/lib/ldap \
 -v /opt/openldap/slapd.d:/etc/ldap/slapd.d \
 siji/openldap:2.4.42
 </code></pre>
 
+<p>This will run OpenLDAP and with the restart option ensure that it runs after reboots.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The command above will run a docker image containing LDAP and set it to automatically restart if the virtual machine is restarted.</p>
+<p>The command above will run a docker image containing LDAP and set it to automatically restart if the virtual machine is restarted.  It also assumes you named your ICP cluster <code>mycluster.icp</code>; if you changed it to something different use that value for the <code>DOMAIN</code> parameter in the command above.</p>
 </div>
-<p>THANK YOU to Jim Conallen, for the following documentation!! 
-Directions for configuring LDAP can be found <a href="https://ibm.ent.box.com/s/6q6h74cdx5zkd0t7y2rhohaiujo99a4u">here</a>.</p>
+<h2 id="configuring-users-and-groups">Configuring Users and Groups</h2>
+<p>With a web browser log into the phpLDAPAdmin page, the address is:</p>
+<p>http://[<em>IP Address of LDAP VM</em>]:9580/phpldapadmin</p>
+<p>The default user/password is admin/admin.</p>
+<p><img alt="LDAP Admin Home Page" src="../images/ldaphome.png" /></p>
+<h3 id="users">Users</h3>
+<p>Click on the top level element the tree (dc=mycluster, dc=icp).</p>
+<p><img alt="Top element" src="../images/topelement.png" /></p>
+<p>Create a child entry of type organizational unit called <code>users</code>,</p>
+<p><img alt="Create User" src="../images/createuserou.png" /></p>
+<p>and click <code>confirm</code>.</p>
+<p><img alt="Create User Confirm" src="../images/createuserouconfirm.png" /></p>
+<p>Create a child entry of users, of <code>Default</code> type.  </p>
+<p><img alt="Create user" src="../images/createuser.png" /></p>
+<p>Select <code>inetOrgPerson</code>, <code>organizationalPerson</code>, and <code>person</code> as object classes.</p>
+<p><img alt="Object Classes" src="../images/userobjectclasses.png" /></p>
+<p>Click <code>Proceed</code>.  Then select <code>User Name (uid)</code> for the <code>RDN</code>, and enter in the username for the <code>cn</code> and<code>sn</code> fields.  Create one for yourself first, you’ll do this same procedure for all users.</p>
+<p><img alt="" src="../images/userpart1.png" /></p>
+<p>Scroll down and set the <code>Password</code> field, and the <code>User Name</code> field with the value of your username.</p>
+<p><img alt="" src="../images/userpart2.png" /></p>
+<p>Click <code>Create</code> then click <code>Commit</code> to save the changes.</p>
+<p><img alt="" src="../images/usercommit.png" /></p>
+<p>Continue to create as many users as you want.  After you have created the users, you need to create at least one group. </p>
+<h3 id="groups">Groups</h3>
+<p>Create a child entry off the top node of type <code>Organisational Unit</code>, call it <code>groups</code>.</p>
+<p><img alt="" src="../images/creategroupou.png" /></p>
+<p>Click <code>Create Object</code> and <code>Commit</code>.</p>
+<p><img alt="" src="../images/groupouconfirm.png" /></p>
+<p>Create a child entry of groups with a <code>Default</code> type.  Select the Object Class <code>groupOfUniqueNames</code>, and click <code>Proceed</code>.</p>
+<p><img alt="" src="../images/creategroup1.png" /></p>
+<p>Select <code>cn</code> as the <code>RDN</code> type, and enter the group name <code>users</code>.  You must add at least one actual user to this group, choose your user id.  The <code>uniqueMember</code> must be of the form;</p>
+<p><code>uid=&lt;username&gt;, ou=&lt;username&gt;, dc=mycluster, dc=icp</code></p>
+<p><img alt="" src="../images/creategroup2.png" /></p>
+<p>Click <code>Create</code> and <code>Commit</code>.</p>
+<p><img alt="" src="../images/creategroupcommit.png" /></p>
+<p>Now you can add the remaining users by clicking the <code>modify group members</code> link.</p>
+<p><img alt="" src="../images/modifymemberslink.png" /></p>
+<p>Add the remaining users to the group using the UI, then click <code>Save Changes</code>.</p>
+<p><img alt="" src="../images/addremainingusers.png" /></p>
+<h2 id="configure-icp">Configure ICP</h2>
+<p>From the ICP UI, and logged in as the Cluster Administrator, select Manage &gt; Authentication from the main menu, and click on the link to configure authentication.
+Enter in the following values for the fields:</p>
+<p><strong>Name:</strong> ldap</p>
+<p><strong>Type:</strong> Custom</p>
+<p><strong>URL:</strong> <code>ldap://[IP Address of LDAP VM]:389</code></p>
+<p><strong>Base DN:</strong> dc=mycluster, dc=icp</p>
+<p><strong>Bind DN:</strong> cn=admin, dc=mycluster, dc=icp</p>
+<p><strong>Admin password:</strong> admin</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The value for <code>admin password</code> needs to be whatever you set as the admin password for your ICP Cluster.  The default is <code>admin</code> but if you changed it during your installation use your password here.</p>
+<p>The values of <code>dc</code> fields above assume you used <code>mycluster.icp</code> as the value for <code>DOMAIN</code> when you created the LDAP server.  If you used other values, then you need to modify the values for <code>dc</code> in these instructions as well.  For example, if you set the <code>DOMAIN</code> to <code>davecluster.dwicp</code> then the <code>Base DN</code> would be <code>dc=davecluster, dc=dwicp</code> and the <code>Bind DN</code> would be <code>cn=admin, dc=davecluster, dc=dwicp</code>.</p>
+</div>
+<p>Click the <code>Test Connection</code> button to verify that these are the correct values.</p>
+<p><img alt="" src="../images/testconnection.png" /></p>
+<p>Scroll down and edit the <code>User</code> filter so that it equals: <code>(&amp;(uid=%v)(objectclass=person))</code>.  Then click <code>Save</code>.</p>
+<p><img alt="" src="../images/edituserfilter.png" /></p>
+<p>The LDAP server should now be configured with ICP.  You can verify by creating a <code>Team</code>.</p>
+<h2 id="create-a-team">Create a Team</h2>
+<p>From the Manage &gt; Teams menu Create a new team.  Enter in a name for the team (e.g. developers), and click on the Users selection.  Then start typing the name of a user you created in the search field just below.  When you find it check it (to select it) and then select the role for this user in the team.  If you can find the users you know that the LDAP was configured properly.</p>
+<p><img alt="Create Team" src="../images/createteam.png" /></p>
+<p>That's it!</p>
               
             </div>
           </div>

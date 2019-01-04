@@ -18,8 +18,8 @@ docker run -d -e DOMAIN=mycluster.icp --net=host --name=openldap \--restart unle
 siji/openldap:2.4.42
 ```
 !!! note
-    The command above will run a docker image containing LDAP and set it to automatically restart if the virtual machine is restarted.
+    The command above will run a docker image containing LDAP and set it to automatically restart if the virtual machine is restarted.  It also assumes you named your ICP cluster `mycluster.icp`; if you changed it to something different use that value in the command above.
 
 
-THANK YOU to Jim Conallen, for the following documentation!! 
+_*THANK YOU*_ to Jim Conallen, for the following documentation!! 
 Directions for configuring LDAP can be found [here](https://ibm.ent.box.com/s/6q6h74cdx5zkd0t7y2rhohaiujo99a4u).

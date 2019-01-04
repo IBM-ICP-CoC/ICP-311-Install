@@ -13,10 +13,9 @@ To install IBM Cloud Private you first need to prepare all of your virtual machi
 !!! note
     The first time you make a secure connection to a remote machine you may see this message:
     
-    ```
-    The authenticity of host '169.60.185.59 (169.60.185.59)' can't be established.
-    ECDSA key fingerprint is SHA256:XAs372uCWTkOqLOkXwQYuCXq21GaJFoYIuItUf0xGpc.
-    Are you sure you want to continue connecting (yes/no)?```
+    > The authenticity of host '169.60.185.59 (169.60.185.59)' can't be established.
+    > ECDSA key fingerprint is SHA256:XAs372uCWTkOqLOkXwQYuCXq21GaJFoYIuItUf0xGpc.
+    > Are you sure you want to continue connecting (yes/no)?
     
     Type in `yes` and the key fingerprint will be added to your `~/.ssh/known_hosts` file.
 
@@ -35,6 +34,31 @@ When the virtual machine was created two additional disks were added to the conf
 
 #Install Docker
 
+- SCP copy the docker file (This is the IBM Docker Enterprise version) to your local machine
+    (icp-docker-18.03.1_x86_64.bin is available with the download of ICP 3.1.1 EE)
+- From your local machine you need to SCP transfer the file to each ICP server
+- Make an install dir on server (In this example I created the install dir on the root dir)
+
+    ```mkdir install ```
+    ```chmod dir 777 install```
+
+- Open Terminal window on local machine
+- Navigate to dir where file is located
+- scp command:    
+
+    ```scp ./icp-docker-18.03.1_x86_64.bin login@icp-server-ip:/install/```
+
+On the server you should now see the docker file. 
+
+docker install commands
+
+```
+    chmod 777 on the file```
+    ./icp-docker-18.03.1_x86_64.bin --install```
+
+    systemctl start docker
+    systemctl enable docker
+```
 
 #Disable the firewall
 ```
@@ -45,7 +69,9 @@ systemctl stop firewalld
 
 #Rename the virtual machine
 
-`hostnamectl set-hostname <new name>`
+```
+hostnamectl set-hostname <new name>
+```
 
 
 #Update the hosts file
@@ -57,21 +83,24 @@ Make sure that the `/etc/hosts` file on each virtual machine has entries for all
 
 ##Generate the KEY on each node
 
-`cd /root ;ssh-keygen -b 4096 -f /root/.ssh/id_rsa -N "" ;cat ~/.ssh/id_rsa.pub | sudo tee -a ~/.ssh/authorized_keys`
+```
+cd /root ;ssh-keygen -b 4096 -f /root/.ssh/id_rsa -N "" ;cat ~/.ssh/id_rsa.pub | sudo tee -a ~/.ssh/authorized_keys
+```
 
 ##Copy the key to each of the other nodes 
 
-Don't just copy these commands below, they are for example ONLY. You need to edit the host names at the end of each of these commands. You will need to run ALL of these commands to copy the SSH key from the current VM to all the rest of the VM's in the cluster. We are sharing the SSH keys, so that the install script can SSH into the other boxes without authentication. 
+**DO NOT** just copy these commands below, they are for example ONLY. You need to edit the host names at the end of each of these commands. You will need to run ALL of these commands to copy the SSH key from the current VM to all the rest of the VM's in the cluster. We are sharing the SSH keys, so that the install script can SSH into the other boxes without authentication. 
+```
+ssh-copy-id -i .ssh/id_rsa.pub root@dak311master
 
-`ssh-copy-id -i .ssh/id_rsa.pub root@dak311master`
+ssh-copy-id -i .ssh/id_rsa.pub root@dak311mgmt
 
-`ssh-copy-id -i .ssh/id_rsa.pub root@dak311mgmt`
+ssh-copy-id -i .ssh/id_rsa.pub root@dak311va
 
-`ssh-copy-id -i .ssh/id_rsa.pub root@dak311va`
+ssh-copy-id -i .ssh/id_rsa.pub root@dak311worker1
 
-`ssh-copy-id -i .ssh/id_rsa.pub root@dak311worker1`
-
-`ssh-copy-id -i .ssh/id_rsa.pub root@dak311worker2`
+ssh-copy-id -i .ssh/id_rsa.pub root@dak311worker2
+```
 
 ##Test the SSH keys
 
@@ -79,7 +108,9 @@ You can perform a simple test to ensure that the SSH keys are setup correctly. A
 
 As an example:  I am logged into the master node. I should be able to type this command below and log directly into the worker1 node without any authentication propts. The example below assumes the host name for worker1 is dak311worker1, yours may be different. 
 
-`ssh dak311worker1`
+```
+ssh dak311worker1
+```
 
 !!! success
     You should now see that your logged into the worker 1 node and you didn't see any prompts for userid or password. 

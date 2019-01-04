@@ -92,6 +92,8 @@
         
             <li><a class="toctree-l3" href="#copy-the-key-to-each-of-the-other-nodes">Copy the key to each of the other nodes</a></li>
         
+            <li><a class="toctree-l3" href="#test-the-ssh-keys">Test the SSH keys</a></li>
+        
         </ul>
     
 
@@ -151,7 +153,8 @@
 <p class="admonition-title">Important</p>
 <p>There are two scripts that will help you prapare your virtual machines for installation of ICP.<br />
 <a href="../files/modify_fs_v2.sh">modify_fs_v2.sh</a> will prepare the disks and move the <code>/var</code> and <code>/opt</code> directories to the two additional disks provisioned when the VMs were created.<br />
-<a href="../files/install_prereqs.sh">install_prereqs.sh</a> takes care of installing MOST of what you will need for the prerequisites.</p>
+<a href="../files/install_prereqs.sh">install_prereqs.sh</a> takes care of installing MOST of what you will need for the prerequisites.
+I would encourage you to look at the contents of these scripts to understand what they do. It should also be noted that they are specific to RHEL, so if your using another OS, such as Ubuntu you will have to perform these steps manually using the proper os commands. </p>
 </div>
 <h1 id="install-prerequisites">Install Prerequisites</h1>
 <div class="admonition note">
@@ -183,16 +186,25 @@ systemctl stop firewalld
 <h1 id="rename-the-virtual-machine">Rename the virtual machine</h1>
 <p><code>hostnamectl set-hostname &lt;new name&gt;</code></p>
 <h1 id="update-the-hosts-file">Update the hosts file</h1>
-<p>Make sure that the <code>/etc/hosts</code> file on each virtual machine has entries for all of the other virtual machines so that they can talk to each other</p>
+<p>Make sure that the <code>/etc/hosts</code> file on each virtual machine has entries for all of the other virtual machines so that they can talk to each other. Take note of what your host names are, you will need them in the following steps. </p>
 <h1 id="setup-ssh-keys">Setup SSH keys</h1>
 <h2 id="generate-the-key-on-each-node">Generate the KEY on each node</h2>
 <p><code>cd /root ;ssh-keygen -b 4096 -f /root/.ssh/id_rsa -N "" ;cat ~/.ssh/id_rsa.pub | sudo tee -a ~/.ssh/authorized_keys</code></p>
 <h2 id="copy-the-key-to-each-of-the-other-nodes">Copy the key to each of the other nodes</h2>
+<p>Don't just copy these commands below, they are for example ONLY. You need to edit the host names at the end of each of these commands. You will need to run ALL of these commands to copy the SSH key from the current VM to all the rest of the VM's in the cluster. We are sharing the SSH keys, so that the install script can SSH into the other boxes without authentication. </p>
 <p><code>ssh-copy-id -i .ssh/id_rsa.pub root@dak311master</code></p>
 <p><code>ssh-copy-id -i .ssh/id_rsa.pub root@dak311mgmt</code></p>
 <p><code>ssh-copy-id -i .ssh/id_rsa.pub root@dak311va</code></p>
 <p><code>ssh-copy-id -i .ssh/id_rsa.pub root@dak311worker1</code></p>
 <p><code>ssh-copy-id -i .ssh/id_rsa.pub root@dak311worker2</code></p>
+<h2 id="test-the-ssh-keys">Test the SSH keys</h2>
+<p>You can perform a simple test to ensure that the SSH keys are setup correctly. At this point you should be able to SSH into any one of the VM's from any one of the VM's. Try it out and spot check the SSH keys. </p>
+<p>As an example:  I am logged into the master node. I should be able to type this command below and log directly into the worker1 node without any authentication propts. The example below assumes the host name for worker1 is dak311worker1, yours may be different. </p>
+<p><code>ssh dak311worker1</code></p>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>You should now see that your logged into the worker 1 node and you didn't see any prompts for userid or password. </p>
+</div>
               
             </div>
           </div>

@@ -8,6 +8,10 @@ To install IBM Cloud Private you first need to prepare all of your virtual machi
     [install_prereqs.sh](files/install_prereqs.sh) takes care of installing MOST of what you will need for the prerequisites.
     I would encourage you to look at the contents of these scripts to understand what they do. It should also be noted that they are specific to RHEL, so if your using another OS, such as Ubuntu you will have to perform these steps manually using the proper os commands. 
 
+!!! new 
+    We have added an additional script to the repo that will expand the `/var` directory only. We have found that the space requirements for v3.1.1 have changed from previous the version. For this reason, we have a 3rd script you can choose to use if you only want to increase the size of the `/var` directory. 
+    [modify_fs_v3.sh](files/modify_fs_v3.sh) will prepare the disk and move the `/var` directorie to the additional disk provisioned when the VMs were created.  
+
 #Install Prerequisites
 
 !!! note

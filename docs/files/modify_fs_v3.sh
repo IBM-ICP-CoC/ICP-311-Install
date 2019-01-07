@@ -9,11 +9,11 @@ sudo yum install -y yum-utils device-mapper-persistent-data lvm2 rsync
 
 #Create Physical Volumes
 #pvcreate /dev/xvdc
-pvcreate /dev/xvde
+pvcreate /dev/xvdc
 
 #Create Volume Groups
 #vgcreate opt-vg /dev/xvdc
-vgcreate var-vg /dev/xvde
+vgcreate var-vg /dev/xvdc
 
 #Create Logical Volumes
 #lvcreate -L $1G -n opt-lv opt-vg   #  The $1  is the first argument passed into the script
@@ -29,7 +29,7 @@ mkfs.ext4 /dev/var-vg/var-lv
 vgchange -ay
 
 #mkdir /mnt/newopt ; mount /dev/xvdc /mnt/newopt
-mkdir /mnt/newvar ; mount /dev/xvde /mnt/newvar
+mkdir /mnt/newvar ; mount /dev/xvdc /mnt/newvar
 
 #copy all files to new dir
 rsync -aqxP /var/* /mnt/newvar

@@ -156,6 +156,11 @@
 <a href="../files/install_prereqs.sh">install_prereqs.sh</a> takes care of installing MOST of what you will need for the prerequisites.
 I would encourage you to look at the contents of these scripts to understand what they do. It should also be noted that they are specific to RHEL, so if your using another OS, such as Ubuntu you will have to perform these steps manually using the proper os commands. </p>
 </div>
+<div class="admonition new">
+<p class="admonition-title">New</p>
+<p>We have added an additional script to the repo that will expand the <code>/var</code> directory only. We have found that the space requirements for v3.1.1 have changed from previous the version. For this reason, we have a 3rd script you can choose to use if you only want to increase the size of the <code>/var</code> directory. 
+<a href="../files/modify_fs_v3.sh">modify_fs_v3.sh</a> will prepare the disk and move the <code>/var</code> directorie to the additional disk provisioned when the VMs were created.  </p>
+</div>
 <h1 id="install-prerequisites">Install Prerequisites</h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

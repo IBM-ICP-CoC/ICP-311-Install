@@ -25,7 +25,7 @@ mkfs.ext4 /dev/var-vg/var-lv
 
 vgchange -ay
 
-mkdir /mnt/newopt ; mount /dev/xvde /mnt/newopt
+mkdir /mnt/newopt ; mount /dev/xvdc /mnt/newopt
 mkdir /mnt/newvar ; mount /dev/xvde /mnt/newvar
 
 #copy all files to new dir

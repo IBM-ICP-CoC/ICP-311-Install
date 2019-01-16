@@ -9,45 +9,49 @@
 - Inside of the virtual machine for your master node, create a new directory called `/opt/icp311`
 - in a terminal window on your laptop, execute this command:
 
-```
-scp ibm-cloud-private-x86_64-3.1.1.tar.gz root@<your-master-node-ip>:/opt/icp311
-```
+    ```
+    scp ibm-cloud-private-x86_64-3.1.1.tar.gz root@<your-master-node-ip>:/opt/icp311
+    ```
 
-!!! note
-    If you have already transferred it the file will be in `/tmp` so you can use this command instead:
+    !!! note
+        If you have already transferred it the file will be in `/tmp` so you can use this command instead:
 
-    `mv /tmp/ibm-cloud-private-x86_64-3.1.1.tar.gz /opt/icp311`
+        `mv /tmp/ibm-cloud-private-x86_64-3.1.1.tar.gz /opt/icp311`
 
 - Expand the tarball (from `/opt/icp311` directory)
 
-```
-/usr/bin/tar xf ibm-cloud-private-x86_64-3.1.1.tar.gz -O | docker load
-```
+    ```
+    /usr/bin/tar xf ibm-cloud-private-x86_64-3.1.1.tar.gz -O | docker load
+    ```
 
-!!! note
-    This command may take several minutes to run
+    !!! note
+        This command may take several minutes to run
 
 - Create inception (run the docker image from the `/opt/icp311` directory)
 
-```
-docker run -v $(pwd):/data -e LICENSE=accept ibmcom/icp-inception-amd64:3.1.1-ee cp -r cluster /data
-```
+    ```
+    docker run -v $(pwd):/data -e LICENSE=accept ibmcom/icp-inception-amd64:3.1.1-ee cp -r cluster /data
+    ```
 
-- Move the image files for your cluster to the `/<installation_directory>/cluster/images` folder.
+- After this command runs, a new directory called `cluster` will be created.  Move the image files for your cluster to the `/<installation_directory>/cluster/images` folder by performing these steps:
 
-- Create a new folder under the /cluster directory called `images`. 
+    - Create a new folder under the /cluster directory called `images`. 
+    - Run this command (from the installation directory):
 
-```
-mv ibm-cloud-private-x86_64-3.1.1.tar.gz  cluster/images/
-```
+        ```
+        mv ibm-cloud-private-x86_64-3.1.1.tar.gz  cluster/images/
+        ```
 
 - Copy the SSH Key to the keys (run this command from the `/opt/icp311` directory)
 
-```
-cp ~/.ssh/id_rsa ./cluster/ssh_key
-```
+    ```
+    cp ~/.ssh/id_rsa ./cluster/ssh_key
+    ```
 
-- Edit the `hosts` file (found in the `/opt/icp311/cluster` directory)
+    !!! note
+        If you get prompted whether you want to overwrite the file, type `yes`.
+
+- Edit the `hosts` file (found in the `/opt/icp311/cluster` directory).
 
 ```
 [master]
@@ -83,18 +87,18 @@ management_services:
 
 - As `root` run the installer (from the `/opt/icp311/cluster` directory)
 
-```
-docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee install
-```
+    ```
+    docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee install
+    ```
 
-!!! success
+!!! note
     If all goes well your install will finish successfully and you will be good to go.
 
-!!! failure
+!!! warning
     If the install fails you need to run the uninstall command before you run the installer again.
 
-```
-    docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee uninstall
-```
+    ```
+        docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee uninstall
+    ```
 
 Happy hosting!

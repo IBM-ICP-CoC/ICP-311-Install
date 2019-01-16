@@ -12,7 +12,7 @@ To install IBM Cloud Private you first need to prepare all of your virtual machi
     We have added an additional script to the repo that will expand the `/var` directory only. We have found that the space requirements for v3.1.1 have changed from previous the version. For this reason, we have a 3rd script you can choose to use if you only want to increase the size of the `/var` directory. 
     [modify_fs_v3.sh](files/modify_fs_v3.sh) will prepare the disk and move the `/var` directorie to the additional disk provisioned when the VMs were created.  
 
-#Install Prerequisites
+## Install Prerequisites
 
 !!! note
     The first time you make a secure connection to a remote machine you may see this message:
@@ -28,15 +28,20 @@ To install IBM Cloud Private you first need to prepare all of your virtual machi
 - Execute the script: `./install_prereqs.sh`
 
 
-#Modify the disks
+## Modify the disks
 
 When the virtual machine was created two additional disks were added to the configuration, but they are not yet configured inside the virtual machine.  These two disks are to be used for the `/opt` and `/var` directories.  
 
 - Download [modify_fs_v2.sh](files/modify_fs_v2.sh) and use `scp` to transfer it to the virtual machine.
-- Inside of the virtual machine use this command to change permissions: `chmod 777 modify_fs_v2.sh`
-- Execute the script: `./modify_fs_v2.sh 199 499` <--- The parameters correspond to the sizes of `Disk 1` and `Disk 2` (minus 1)
+- Inside of the virtual machine use this command to change permissions: 
 
-#Install Docker
+    `chmod 777 modify_fs_v2.sh`
+
+- Execute the script: 
+
+    `./modify_fs_v2.sh 199 499` <--- The parameters correspond to the sizes of `Disk 1` and `Disk 2` (minus 1)
+
+## Install Docker
 
 - SCP copy the docker file (This is the IBM Docker Enterprise version) to your local machine
     (icp-docker-18.03.1_x86_64.bin is available with the download of ICP 3.1.1 EE)
@@ -44,6 +49,7 @@ When the virtual machine was created two additional disks were added to the conf
 - Make an install dir on server (In this example I created the install dir on the root dir)
 
     ```mkdir install ```
+
     ```chmod dir 777 install```
 
 - Open Terminal window on local machine
@@ -54,44 +60,44 @@ When the virtual machine was created two additional disks were added to the conf
 
 On the server you should now see the docker file. 
 
-docker install commands
+### Docker install commands
 
 ```
-    chmod 777 on the file```
-    ./icp-docker-18.03.1_x86_64.bin --install```
+    chmod 777 on the file
+    ./icp-docker-18.03.1_x86_64.bin --install
 
     systemctl start docker
     systemctl enable docker
 ```
 
-#Disable the firewall
+## Disable the firewall
 ```
 systemctl disable firewalld
 systemctl stop firewalld
 ```
 
 
-#Rename the virtual machine
+## Rename the virtual machine
 
 ```
 hostnamectl set-hostname <new name>
 ```
 
 
-#Update the hosts file
+## Update the hosts file
 
 Make sure that the `/etc/hosts` file on each virtual machine has entries for all of the other virtual machines so that they can talk to each other. Take note of what your host names are, you will need them in the following steps. 
 
 
-#Setup SSH keys
+## Setup SSH keys
 
-##Generate the KEY on each node
+### Generate the KEY on each node
 
 ```
 cd /root ;ssh-keygen -b 4096 -f /root/.ssh/id_rsa -N "" ;cat ~/.ssh/id_rsa.pub | sudo tee -a ~/.ssh/authorized_keys
 ```
 
-##Copy the key to each of the other nodes 
+### Copy the key to each of the other nodes 
 
 **DO NOT** just copy these commands below, they are for example ONLY. You need to edit the host names at the end of each of these commands. You will need to run ALL of these commands to copy the SSH key from the current VM to all the rest of the VM's in the cluster. We are sharing the SSH keys, so that the install script can SSH into the other boxes without authentication. 
 ```
@@ -106,7 +112,7 @@ ssh-copy-id -i .ssh/id_rsa.pub root@dak311worker1
 ssh-copy-id -i .ssh/id_rsa.pub root@dak311worker2
 ```
 
-##Test the SSH keys
+### Test the SSH keys
 
 You can perform a simple test to ensure that the SSH keys are setup correctly. At this point you should be able to SSH into any one of the VM's from any one of the VM's. Try it out and spot check the SSH keys. 
 
@@ -115,6 +121,8 @@ As an example:  I am logged into the master node. I should be able to type this 
 ```
 ssh dak311worker1
 ```
+ 
 
-!!! success
-    You should now see that your logged into the worker 1 node and you didn't see any prompts for userid or password. 
+!!! note
+    You should now see that your logged into the worker 1 node and you didn't see any prompts for userid or password.
+

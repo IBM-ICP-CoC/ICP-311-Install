@@ -1,4 +1,6 @@
 site_name: Installing IBM Cloud Private
+repo_url: https://github.com/IBM-ICP-CoC/ICP-311-Install
+edit_url: root/path/docs
 nav:
     - Home: index.md
     - Creating VMs: createvms.md

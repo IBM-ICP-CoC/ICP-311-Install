@@ -130,51 +130,48 @@
 <h2 id="unpack-the-installer">Unpack the installer</h2>
 <ul>
 <li>Inside of the virtual machine for your master node, create a new directory called <code>/opt/icp311</code></li>
-<li>in a terminal window on your laptop, execute this command:</li>
-</ul>
-<pre><code>scp ibm-cloud-private-x86_64-3.1.1.tar.gz root@&lt;your-master-node-ip&gt;:/opt/icp311
-</code></pre>
-
+<li>
+<p>in a terminal window on your laptop, execute this command:</p>
+<p><code>scp ibm-cloud-private-x86_64-3.1.1.tar.gz root@&lt;your-master-node-ip&gt;:/opt/icp311</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you have already transferred it the file will be in <code>/tmp</code> so you can use this command instead:</p>
 <p><code>mv /tmp/ibm-cloud-private-x86_64-3.1.1.tar.gz /opt/icp311</code></p>
 </div>
-<ul>
-<li>Expand the tarball (from <code>/opt/icp311</code> directory)</li>
-</ul>
-<pre><code>/usr/bin/tar xf ibm-cloud-private-x86_64-3.1.1.tar.gz -O | docker load
-</code></pre>
-
+</li>
+<li>
+<p>Expand the tarball (from <code>/opt/icp311</code> directory)</p>
+<p><code>/usr/bin/tar xf ibm-cloud-private-x86_64-3.1.1.tar.gz -O | docker load</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This command may take several minutes to run</p>
 </div>
-<ul>
-<li>Create inception (run the docker image from the <code>/opt/icp311</code> directory)</li>
-</ul>
-<pre><code>docker run -v $(pwd):/data -e LICENSE=accept ibmcom/icp-inception-amd64:3.1.1-ee cp -r cluster /data
-</code></pre>
-
-<ul>
-<li>
-<p>Move the image files for your cluster to the <code>/&lt;installation_directory&gt;/cluster/images</code> folder.</p>
 </li>
 <li>
-<p>Create a new folder under the /cluster directory called <code>images</code>. </p>
+<p>Create inception (run the docker image from the <code>/opt/icp311</code> directory)</p>
+<p><code>docker run -v $(pwd):/data -e LICENSE=accept ibmcom/icp-inception-amd64:3.1.1-ee cp -r cluster /data</code></p>
+</li>
+<li>
+<p>After this command runs, a new directory called <code>cluster</code> will be created.  Move the image files for your cluster to the <code>/&lt;installation_directory&gt;/cluster/images</code> folder by performing these steps:</p>
+<ul>
+<li>Create a new folder under the /cluster directory called <code>images</code>. </li>
+<li>
+<p>Run this command (from the installation directory):</p>
+<p><code>mv ibm-cloud-private-x86_64-3.1.1.tar.gz  cluster/images/</code></p>
 </li>
 </ul>
-<pre><code>mv ibm-cloud-private-x86_64-3.1.1.tar.gz  cluster/images/
-</code></pre>
-
-<ul>
-<li>Copy the SSH Key to the keys (run this command from the <code>/opt/icp311</code> directory)</li>
-</ul>
-<pre><code>cp ~/.ssh/id_rsa ./cluster/ssh_key
-</code></pre>
-
-<ul>
-<li>Edit the <code>hosts</code> file (found in the <code>/opt/icp311/cluster</code> directory)</li>
+</li>
+<li>
+<p>Copy the SSH Key to the keys (run this command from the <code>/opt/icp311</code> directory)</p>
+<p><code>cp ~/.ssh/id_rsa ./cluster/ssh_key</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you get prompted whether you want to overwrite the file, type <code>yes</code>.</p>
+</div>
+</li>
+<li>
+<p>Edit the <code>hosts</code> file (found in the <code>/opt/icp311/cluster</code> directory).</p>
+</li>
 </ul>
 <pre><code>[master]
 &lt;your-master-ip&gt;
@@ -209,22 +206,20 @@ management_services:
 </code></pre>
 
 <ul>
-<li>As <code>root</code> run the installer (from the <code>/opt/icp311/cluster</code> directory)</li>
+<li>
+<p>As <code>root</code> run the installer (from the <code>/opt/icp311/cluster</code> directory)</p>
+<p><code>docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee install</code></p>
+</li>
 </ul>
-<pre><code>docker run --net=host -t -e LICENSE=accept -v &quot;$(pwd)&quot;:/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee install
-</code></pre>
-
-<div class="admonition success">
-<p class="admonition-title">Success</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>If all goes well your install will finish successfully and you will be good to go.</p>
 </div>
-<div class="admonition failure">
-<p class="admonition-title">Failure</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>If the install fails you need to run the uninstall command before you run the installer again.</p>
+<p><code>docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee uninstall</code></p>
 </div>
-<pre><code>    docker run --net=host -t -e LICENSE=accept -v &quot;$(pwd)&quot;:/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee uninstall
-</code></pre>
-
 <p>Happy hosting!</p>
               
             </div>

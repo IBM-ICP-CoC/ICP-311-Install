@@ -1,4 +1,4 @@
-#Installing IBM Cloud Private in IBM Cloud Virtual Machines
+# Installing IBM Cloud Private in IBM Cloud Virtual Machines
 
 This document will walk you through the steps needed to create virtual machines in IBM Cloud and use them to run IBM Cloud Private. It should be noted that the instructions on this site were captured while configuring and installing on RHEL virtual servers hosted on IBM Cloud (Softlayer). Some of the server setup steps may vary if you are attempting to provision virtual servers in another cloud provider or if you are installing on a different OS. 
 

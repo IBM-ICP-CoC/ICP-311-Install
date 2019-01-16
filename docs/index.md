@@ -2,6 +2,9 @@
 
 This document will walk you through the steps needed to create virtual machines in IBM Cloud and use them to run IBM Cloud Private. It should be noted that the instructions on this site were captured while configuring and installing on RHEL virtual servers hosted on IBM Cloud (Softlayer). Some of the server setup steps may vary if you are attempting to provision virtual servers in another cloud provider or if you are installing on a different OS. 
 
+!!! tip
+    If you find any typos, errors, or just want to provide helpful feedback to make this document better, please use the `Edit on Github` link and create an issue in the repository.  Thanks for your feedback!
+
 In this example, we will be installing Docker EE and ICP 3.1.1 Enterprise edtion on RHEL. The docker EE edition is install file is included with the download of ICP 3.1.1. These are the files you will need. 
 
 - ibm-cloud-private-x86_64-3.1.1.tar.gz  

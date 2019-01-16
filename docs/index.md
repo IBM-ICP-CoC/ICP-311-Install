@@ -13,17 +13,16 @@ In this example, we will be installing Docker EE and ICP 3.1.1 Enterprise edtion
     You will need to log in and do a search for **_IBM Cloud Private 3.1.1_**. 
     The package assembly you need to look for is: **IBM Cloud Private Installation Packages eAssembly  (CJ4MTEN)**
 
-    IBM Cloud Private 3.1.1 for Linux (x86_64) Docker (CNXC8EN)
-
+    IBM Cloud Private 3.1.1 for Linux (x86_64) Docker (CNZ4WEN)
     IBM Cloud Private 3.1.1 Docker for Linux (x86_64) (CNXD2EN)
 
 
 
-##Acknowledgments
-- Dave Wakeman (Public) & Dave Krier (Dist) are the authors of this install guide. 
-- Dave Weilert (COC Team) was the pioneer who documented the install process and perfected all the pre-req steps.
-- Jim Conallen (COC Team) authored the LDAP setup and configuration guide. 
-- Tom Watson (Dist) testing and adding comments.
+## Acknowledgments
+- Dave Wakeman (Public) & Dave Krier (Distribution) are the authors of this install guide.
+- Dave Weilert (COC Team) was the pioneer who documented the install process and perfected all the pre-requisite steps.
+- Jim Conallen (COC Team) authored the LDAP setup and configuration guide.
+- Tom Watson (Distribution) tested and added comments.
 
 !!! danger
     _This is **NOT** a replacement for the official [documentation](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/kc_welcome_containers.html) for IBM Cloud Private!  It is intended only to be a learning guide, and uses an arbitrary configuration that may not be appropriate for production use._

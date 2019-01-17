@@ -95,7 +95,7 @@ management_services:
     If all goes well your install will finish successfully and you will be good to go.
 
 !!! warning
-    If the install fails you need to run the uninstall command before you run the installer again.
+    If the install fails you need to run the uninstall command before you run the installer again.  To troubleshoot the issue you can find the logs in the `cluster/logs` directory.
 
     ```
         docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee uninstall

@@ -15,7 +15,7 @@ In this example, we will be installing Docker EE and ICP 3.1.1 Enterprise edtion
 - icp-docker-18.03.1_x86_64.bin
 
 !!! note
-    If you are an IBM'er, you can download the install files from the [Software Sellerrs Workplace](https://w3-03.ibm.com/software/xl/download/ticket.wss). 
+    If you are an IBM'er, you can download the install files from the <a href="https://w3-03.ibm.com/software/xl/download/ticket.wss" target="_blank">Software Sellers Workplace</a>. 
     
     You will need to log in and do a search for **_IBM Cloud Private 3.1.1_**. 
     The package assembly you need to look for is: **IBM Cloud Private Installation Packages eAssembly  (CJ4MTEN)**
@@ -32,5 +32,5 @@ In this example, we will be installing Docker EE and ICP 3.1.1 Enterprise edtion
 - Tom Watson (Distribution) tested and added comments.
 
 !!! danger
-    _This is **NOT** a replacement for the official [documentation](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/kc_welcome_containers.html) for IBM Cloud Private!  It is intended only to be a learning guide, and uses an arbitrary configuration that may not be appropriate for production use._
+    _This is **NOT** a replacement for the official <a href="https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/kc_welcome_containers.html" target="_blank">documentation</a> for IBM Cloud Private!  It is intended only to be a learning guide, and uses an arbitrary configuration that may not be appropriate for production use._
 

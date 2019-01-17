@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Adding NFS Storage - Installing IBM Cloud Private</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Adding NFS Storage";
+    var mkdocs_page_input_path = "addnfs.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Installing IBM Cloud Private</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../createvms/">Creating VMs</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../setupall/">Setup on All VMs</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../installicp/">Installation</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../customurl/">Using a custom URL</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../ldap/">Installing and Configuring LDAP</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Adding NFS Storage</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#add-nfs-storage-to-your-cluster">Add NFS Storage to your cluster</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#create-the-file-storage-device-in-ibm-cloud">Create the File Storage Device in IBM Cloud</a></li>
+        
+            <li><a class="toctree-l3" href="#add-persistent-volume-in-ibm-cloud-private">Add Persistent Volume in IBM Cloud Private</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Installing IBM Cloud Private</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Adding NFS Storage</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/IBM-ICP-CoC/ICP-311-Install/edit/master/docs/addnfs.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="add-nfs-storage-to-your-cluster">Add NFS Storage to your cluster</h1>
+<h2 id="create-the-file-storage-device-in-ibm-cloud">Create the File Storage Device in IBM Cloud</h2>
+<p>IBM Cloud has a File Storage service that you can use to create NFS volumes that can be added as persistent volumes in your ICP cluster.  To provision an NFS volume login to IBM Cloud and follow the steps below.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These instructions have only been tested with an IBM Cloud Private cluster hosted in virtual servers in IBM Cloud.</p>
+</div>
+<ul>
+<li>
+<p>Go to the catalog, navigate to the <code>Storage</code> category and click on the File Storage tile.</p>
+<p><img alt="File Storage" src="../images/filestoragetile.png" /></p>
+</li>
+<li>
+<p>Click the <code>Create</code> button.</p>
+</li>
+<li>
+<p>Select the appropriate region and (optionally) data center.</p>
+<p><img alt="" src="../images/createfilestorage2.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this example the default performance option is selected.  You can choose whatever you need.</p>
+</div>
+</li>
+<li>
+<p>Click the check box to accept the terms and conditions, then click <code>Create</code>.  You should see a popup indicating that your order was placed.</p>
+<p><img alt="" src="../images/createstoragesuccess.png" /></p>
+</li>
+<li>
+<p>Click the button to view the dashboard.  The dashboard does not show file storage resources, so you will need to click the <code>file storage</code> link to see them.</p>
+<p><img alt="" src="../images/viewfilestorage.png" /></p>
+<p>You should see a list of all your file storage devices.  If you have more than one the one you just created should be at the bottom of the list.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your device has not yet been provisioned you will see a little "clock" icon next to the name of the device.  In this case just refresh the page using the refresh icon in the table's toolbar until the clock icon goes away.</p>
+</div>
+</li>
+<li>
+<p>Click on the name of your device to see its details.  Take note of the <code>Host Name</code> and <code>Mount Point</code> fields.  You will need them later to configure your persistent volume in Cloud Private.</p>
+</li>
+<li>
+<p>In order for Cloud Private to be able to access your newly created storage you must authorize the hosts on which your cluster is running.  If you scroll down on the device details page you will notice that by default no hosts are authorized.</p>
+<p><img alt="" src="../images/nohostsauthorized.png" /></p>
+</li>
+<li>
+<p>Click the <code>Authorize Host</code> link.  In the popup set the Device Type to <code>Virtual Server</code> (assuming you used virtual servers), then use the Virtual Guest dropdown to select each of your Cloud Private servers (one at a time).</p>
+<p><img alt="" src="../images/authorizehosts.png" /></p>
+</li>
+<li>
+<p>Click <code>Submit</code>.  You should now see all of your virtual servers listed in the Authorized Hosts table on the Device Details page.</p>
+<p><img alt="" src="../images/authorizedhostslist.png" /></p>
+</li>
+</ul>
+<p>This concludes the portion of the setup in IBM Cloud.</p>
+<h2 id="add-persistent-volume-in-ibm-cloud-private">Add Persistent Volume in IBM Cloud Private</h2>
+<p>Login to your Cloud Private Console.  </p>
+<ul>
+<li>
+<p>In the left navigation menu expand the <code>Platform</code> category and click <code>Storage</code>.</p>
+</li>
+<li>
+<p>Click <code>Create Persistent Volume</code>.</p>
+</li>
+<li>
+<p>On the <code>General</code> tab give your volume a name.  Leave the <code>Storage class name</code> blank, set the <code>Capacity</code> field to the size of your file storage volume (20 GB by default, or whatever size you chose when you created the volume).  Select the appropriate <code>Access mode</code> that you wish to use for this volume.</p>
+</li>
+<li>
+<p>Click the Parameters tab.  For an NFS volume you have to add two parameters, named <code>Server</code> and <code>Path</code>, whose values are the host name and mount point you captured earlier on the Device Details page for your volume in IBM Cloud.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The Mount Point field will actually be of format <code>hostname:path</code>,  like this:</p>
+<p><code>fsf-dal1301d-fz.adn.networklayer.com:/IBM02SEV1578085_10/data01</code></p>
+<p>The value of path should be just the content after the <code>:</code>, like this:</p>
+<p><code>/IBM02SEV1578085_10/data01</code></p>
+</div>
+<p><img alt="" src="../images/createpersistentvolume.png" /></p>
+</li>
+<li>
+<p>Click <code>Create</code>.  You should see your newly created persistent volume in the list.</p>
+<p><img alt="" src="../images/pvcreated.png" /></p>
+</li>
+</ul>
+<p>That's it!  If the status is <code>Available</code> your persistent volume is ready for use.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../ldap/" class="btn btn-neutral" title="Installing and Configuring LDAP"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/IBM-ICP-CoC/ICP-311-Install/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../ldap/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

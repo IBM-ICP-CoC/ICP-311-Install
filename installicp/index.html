@@ -90,6 +90,11 @@
     <a class="" href="../ldap/">Installing and Configuring LDAP</a>
 	    </li>
           
+            <li class="toctree-l1">
+		
+    <a class="" href="../addnfs/">Adding NFS Storage</a>
+	    </li>
+          
         </ul>
       </div>
       &nbsp;
@@ -220,7 +225,7 @@ management_services:
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If the install fails you need to run the uninstall command before you run the installer again.</p>
+<p>If the install fails you need to run the uninstall command before you run the installer again.  To troubleshoot the issue you can find the logs in the <code>cluster/logs</code> directory.</p>
 <p><code>docker run --net=host -t -e LICENSE=accept -v "$(pwd)":/installer/cluster ibmcom/icp-inception-amd64:3.1.1-ee uninstall</code></p>
 </div>
 <p>Happy hosting!</p>

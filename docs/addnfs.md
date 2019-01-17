@@ -4,6 +4,9 @@
 
 IBM Cloud has a File Storage service that you can use to create NFS volumes that can be added as persistent volumes in your ICP cluster.  To provision an NFS volume login to IBM Cloud and follow the steps below.
 
+!!! note
+    These instructions have only been tested with an IBM Cloud Private cluster hosted in virtual servers in IBM Cloud.
+
 - Go to the catalog, navigate to the `Storage` category and click on the File Storage tile.
 
     ![File Storage](images/filestoragetile.png)

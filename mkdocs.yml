@@ -8,6 +8,7 @@ nav:
     - Installation: installicp.md
     - Using a custom URL: customurl.md
     - Installing and Configuring LDAP: ldap.md
+    - Adding NFS Storage: addnfs.md
 
 theme: readthedocs
 markdown_extensions:

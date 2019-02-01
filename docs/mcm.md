@@ -1,4 +1,8 @@
-# Download the tarball
+# Installing Multicloud Manager
+
+_**THANK YOU** to Darrell Schrag for contributing this documentation!!_
+
+## Download the tarball
 
 You will need the tarball that contains the MCM images. Depending on your ICP architecture, here are the files you need.
 
@@ -21,7 +25,7 @@ For the rest of these instructions, we are assuming an x86 architecture.
 
 The following instructions come basically from the Knowledge Center for installing MCM <a href="https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/mcm/installing/install.html" target="_blank">https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/mcm/installing/install.html</a>
 
-# Prerequisites
+## Prerequisites
 
 The following must be installed on your MacBook as prerequisites for these instructions
 
@@ -31,7 +35,7 @@ The following must be installed on your MacBook as prerequisites for these instr
 - helm
 - IBM Cloud Private CLI (cloudctl)
 
-# Loading the archive
+## Loading the archive
 
 The first step is to get the MCM images into the ICP Docker registry. You need to remotely login to the ICP Docker registry from your laptop. For these instructions a MacBook was used. See the Knowledge Center link above for instructions for Linux.
 
@@ -86,7 +90,7 @@ cloudctl catalog load-ppa-archive -a mcm-3.1.1-amd64.tgz --registry mycluster.ic
 
 ![](images/mcm-catalog.png)
 
-## Install Multi-cloud Manager
+### Install Multi-cloud Manager
 
 Installing Multi-cloud Manager has many options. Below we will be basically taking the default route. During the installation process it also lets you install the Multi-cloud Manager klusterlet in the same step. We will do that separately.
 
@@ -115,7 +119,7 @@ cloudctl login -a https://<hub_cluster_host_name>:8443 --skip-ssl-validation
 kubectl create namespace mcm
 ```
 
-## Installing the Multi-cloud Klusterlet in your ICP instance
+### Installing the Multi-cloud Klusterlet in your ICP instance
 
 We need to gather some information to install the Klusterlet (all installations of the MCM Klusterlet require this info).
 
@@ -172,7 +176,7 @@ docker run -e LICENSE=accept -v $(pwd):/data mycluster.icp:8500/kube-system/mcmc
 mv mcmctl /usr/local/bin
 ```
 
-## Install the Multi-cloud Klusterlet into an instance of IKS
+### Install the Multi-cloud Klusterlet into an instance of IKS
 
 Installing the MCM Klusterlet into Kubernetes clusters other than ICP will be officially supported in a future release (i.e. 3.1.2), but the following will work. These instructions are obtained from <a href="https://hub.docker.com/r/ibmcom/mcm-inception-amd64" target="_blank">https://hub.docker.com/r/ibmcom/mcm-inception-amd64</a>. The instructions install the CE version of the Klusterlet.
 

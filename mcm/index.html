@@ -88,21 +88,15 @@
     <a class="current" href="./">installing Muticloud Manager</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#download-the-tarball">Download the tarball</a></li>
-    
-
-    <li class="toctree-l2"><a href="#prerequisites">Prerequisites</a></li>
-    
-
-    <li class="toctree-l2"><a href="#loading-the-archive">Loading the archive</a></li>
+    <li class="toctree-l2"><a href="#installing-multicloud-manager">Installing Multicloud Manager</a></li>
     
         <ul>
         
-            <li><a class="toctree-l3" href="#install-multi-cloud-manager">Install Multi-cloud Manager</a></li>
+            <li><a class="toctree-l3" href="#download-the-tarball">Download the tarball</a></li>
         
-            <li><a class="toctree-l3" href="#installing-the-multi-cloud-klusterlet-in-your-icp-instance">Installing the Multi-cloud Klusterlet in your ICP instance</a></li>
+            <li><a class="toctree-l3" href="#prerequisites">Prerequisites</a></li>
         
-            <li><a class="toctree-l3" href="#install-the-multi-cloud-klusterlet-into-an-instance-of-iks">Install the Multi-cloud Klusterlet into an instance of IKS</a></li>
+            <li><a class="toctree-l3" href="#loading-the-archive">Loading the archive</a></li>
         
         </ul>
     
@@ -142,7 +136,9 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="download-the-tarball">Download the tarball</h1>
+                <h1 id="installing-multicloud-manager">Installing Multicloud Manager</h1>
+<p><em><strong>THANK YOU</strong> to Darrell Schrag for contributing this documentation!!</em></p>
+<h2 id="download-the-tarball">Download the tarball</h2>
 <p>You will need the tarball that contains the MCM images. Depending on your ICP architecture, here are the files you need.</p>
 <ul>
 <li>mcm-3.1.1-amd64.tgz (for x86)</li>
@@ -159,7 +155,7 @@ The package assembly you need to look for is: <strong>IBM Multi-cloud Manager In
 </div>
 <p>For the rest of these instructions, we are assuming an x86 architecture.</p>
 <p>The following instructions come basically from the Knowledge Center for installing MCM <a href="https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/mcm/installing/install.html" target="_blank">https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/mcm/installing/install.html</a></p>
-<h1 id="prerequisites">Prerequisites</h1>
+<h2 id="prerequisites">Prerequisites</h2>
 <p>The following must be installed on your MacBook as prerequisites for these instructions</p>
 <ul>
 <li>Access to your ICP instance</li>
@@ -168,7 +164,7 @@ The package assembly you need to look for is: <strong>IBM Multi-cloud Manager In
 <li>helm</li>
 <li>IBM Cloud Private CLI (cloudctl)</li>
 </ul>
-<h1 id="loading-the-archive">Loading the archive</h1>
+<h2 id="loading-the-archive">Loading the archive</h2>
 <p>The first step is to get the MCM images into the ICP Docker registry. You need to remotely login to the ICP Docker registry from your laptop. For these instructions a MacBook was used. See the Knowledge Center link above for instructions for Linux.</p>
 <p>In order to get access to the remote ICP Docker registry, you need to get an authorization certificate. The certificate authority is located on your master node and is by default named <strong>mycluster.icp</strong>. If you gave it another name when installing then use that name. All of the following instructions assume the certificate authority name is <strong>mycluster.icp</strong>.</p>
 <p>Execute these steps be able to login to your ICP Docker registry. Not sure if all of these are necessary.</p>
@@ -194,7 +190,7 @@ scp root@mycluster.icp:/etc/docker/certs.d/mycluster.icp\:8500/ca.crt ~/.docker/
 <ul>
 <li>Add the remote certificate authority as an insecure Docker registry. From the Docker application on the MacBook, select Docker-&gt;Preferences. On the Deamon tab, add <strong>mycluster.icp:8500</strong> as an insecure registry. It should look like this.</li>
 </ul>
-<p><img alt="" src="images/docker-insecure-reg.png" /></p>
+<p><img alt="" src="../images/docker-insecure-reg.png" /></p>
 <ul>
 <li>
 <p>Apply and restart Docker</p>
@@ -222,7 +218,7 @@ scp root@mycluster.icp:/etc/docker/certs.d/mycluster.icp\:8500/ca.crt ~/.docker/
 <li>You should also see 2 new MCM entries in the catalog</li>
 </ul>
 <p><img alt="" src="../images/mcm-catalog.png" /></p>
-<h2 id="install-multi-cloud-manager">Install Multi-cloud Manager</h2>
+<h3 id="install-multi-cloud-manager">Install Multi-cloud Manager</h3>
 <p>Installing Multi-cloud Manager has many options. Below we will be basically taking the default route. During the installation process it also lets you install the Multi-cloud Manager klusterlet in the same step. We will do that separately.</p>
 <ul>
 <li>Login to your ICP Management Console</li>
@@ -251,7 +247,7 @@ scp root@mycluster.icp:/etc/docker/certs.d/mycluster.icp\:8500/ca.crt ~/.docker/
 kubectl create namespace mcm
 </code></pre>
 
-<h2 id="installing-the-multi-cloud-klusterlet-in-your-icp-instance">Installing the Multi-cloud Klusterlet in your ICP instance</h2>
+<h3 id="installing-the-multi-cloud-klusterlet-in-your-icp-instance">Installing the Multi-cloud Klusterlet in your ICP instance</h3>
 <p>We need to gather some information to install the Klusterlet (all installations of the MCM Klusterlet require this info).</p>
 <ul>
 <li>Login to the ICP Management console</li>
@@ -310,7 +306,7 @@ kubectl config use-context {cluster_name}-context
 mv mcmctl /usr/local/bin
 </code></pre>
 
-<h2 id="install-the-multi-cloud-klusterlet-into-an-instance-of-iks">Install the Multi-cloud Klusterlet into an instance of IKS</h2>
+<h3 id="install-the-multi-cloud-klusterlet-into-an-instance-of-iks">Install the Multi-cloud Klusterlet into an instance of IKS</h3>
 <p>Installing the MCM Klusterlet into Kubernetes clusters other than ICP will be officially supported in a future release (i.e. 3.1.2), but the following will work. These instructions are obtained from <a href="https://hub.docker.com/r/ibmcom/mcm-inception-amd64" target="_blank">https://hub.docker.com/r/ibmcom/mcm-inception-amd64</a>. The instructions install the CE version of the Klusterlet.</p>
 <ul>
 <li>Run the following command to get the cluster directory from the inception container. The result of this command is that a cluster directory is created in your current directory.</li>

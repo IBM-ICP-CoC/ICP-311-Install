@@ -9,6 +9,7 @@ nav:
     - Using a custom URL: customurl.md
     - Installing and Configuring LDAP: ldap.md
     - Adding NFS Storage: addnfs.md
+    - installing Muticloud Manager: mcm.md
 
 theme: readthedocs
 markdown_extensions:

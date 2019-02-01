@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>installing Muticloud Manager - Installing IBM Cloud Private</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "installing Muticloud Manager";
+    var mkdocs_page_input_path = "mcm.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Installing IBM Cloud Private</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../createvms/">Creating VMs</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../setupall/">Setup on All VMs</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../installicp/">Installation</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../customurl/">Using a custom URL</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../ldap/">Installing and Configuring LDAP</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../addnfs/">Adding NFS Storage</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">installing Muticloud Manager</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#download-the-tarball">Download the tarball</a></li>
+    
+
+    <li class="toctree-l2"><a href="#prerequisites">Prerequisites</a></li>
+    
+
+    <li class="toctree-l2"><a href="#loading-the-archive">Loading the archive</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#install-multi-cloud-manager">Install Multi-cloud Manager</a></li>
+        
+            <li><a class="toctree-l3" href="#installing-the-multi-cloud-klusterlet-in-your-icp-instance">Installing the Multi-cloud Klusterlet in your ICP instance</a></li>
+        
+            <li><a class="toctree-l3" href="#install-the-multi-cloud-klusterlet-into-an-instance-of-iks">Install the Multi-cloud Klusterlet into an instance of IKS</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Installing IBM Cloud Private</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>installing Muticloud Manager</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="download-the-tarball">Download the tarball</h1>
+<p>You will need the tarball that contains the MCM images. Depending on your ICP architecture, here are the files you need.</p>
+<ul>
+<li>mcm-3.1.1-amd64.tgz (for x86)</li>
+<li>mcm-3.1.1-ppc64le.tgz (for power)</li>
+</ul>
+<p>Both of these files can be found in the <strong>mcm-3.1.1.tgz</strong> tarball file, which is the Installation Package Assembly.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are an IBM'er, you can download the install files from the <a href="https://w3-03.ibm.com/software/xl/download/ticket.wss" target="_blank">Software Sellers Workplace</a>. </p>
+<p>You will need to log in and do a search for <strong><em>IBM Multi-cloud Manager 3.1.1</em></strong>. 
+The package assembly you need to look for is: <strong>IBM Multi-cloud Manager Installation Packages eAssembly  (CJ4NTEN)</strong></p>
+<p>Download the following part in the assembly:</p>
+<p>IBM Multi-cloud Manager 3.1.1 Kubernetes Images for Linux (CNX22EN)</p>
+</div>
+<p>For the rest of these instructions, we are assuming an x86 architecture.</p>
+<p>The following instructions come basically from the Knowledge Center for installing MCM <a href="https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/mcm/installing/install.html" target="_blank">https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/mcm/installing/install.html</a></p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>The following must be installed on your MacBook as prerequisites for these instructions</p>
+<ul>
+<li>Access to your ICP instance</li>
+<li>Docker</li>
+<li>kubectl</li>
+<li>helm</li>
+<li>IBM Cloud Private CLI (cloudctl)</li>
+</ul>
+<h1 id="loading-the-archive">Loading the archive</h1>
+<p>The first step is to get the MCM images into the ICP Docker registry. You need to remotely login to the ICP Docker registry from your laptop. For these instructions a MacBook was used. See the Knowledge Center link above for instructions for Linux.</p>
+<p>In order to get access to the remote ICP Docker registry, you need to get an authorization certificate. The certificate authority is located on your master node and is by default named <strong>mycluster.icp</strong>. If you gave it another name when installing then use that name. All of the following instructions assume the certificate authority name is <strong>mycluster.icp</strong>.</p>
+<p>Execute these steps be able to login to your ICP Docker registry. Not sure if all of these are necessary.</p>
+<ul>
+<li>First, add your certificate authority (CA) name to your local <strong>/etc/hosts</strong> file.</li>
+</ul>
+<pre><code class="bash">&lt;icp-master-ip&gt;  mycluster.icp
+</code></pre>
+
+<ul>
+<li>Then, on your MacBook create a new directory to store the certificate and copy the cert file down from your CA node</li>
+</ul>
+<pre><code class="bash">mkdir -p ~/.docker/certs.d/mycluster.icp\:8500
+scp root@mycluster.icp:/etc/docker/certs.d/mycluster.icp\:8500/ca.crt ~/.docker/certs.d/mycluster.icp\:8500/ca.crt
+</code></pre>
+
+<ul>
+<li>Also, add the cert to your MacBook keychain</li>
+</ul>
+<pre><code class="bash">sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ~/.docker/certs.d/mycluster.icp\:8500/ca.crt
+</code></pre>
+
+<ul>
+<li>Add the remote certificate authority as an insecure Docker registry. From the Docker application on the MacBook, select Docker-&gt;Preferences. On the Deamon tab, add <strong>mycluster.icp:8500</strong> as an insecure registry. It should look like this.</li>
+</ul>
+<p><img alt="" src="images/docker-insecure-reg.png" /></p>
+<ul>
+<li>
+<p>Apply and restart Docker</p>
+</li>
+<li>
+<p>After all of these steps, you should be able to login to your ICP Docker registry with this command.</p>
+</li>
+</ul>
+<pre><code class="bash">docker login mycluster.icp:8500
+</code></pre>
+
+<ul>
+<li>Now login to <strong>cloudctl</strong></li>
+</ul>
+<pre><code class="bash">cloudctl login -a https://&lt;master-cluster-ip&gt;:8443 --skip-ssl-validation
+</code></pre>
+
+<ul>
+<li>From the directory that contains the mcm-3.1.1-amd64.tgz (extracted from the mcm-3.1.1.tgz file), load the archives using the command below. You will see a series of images being loaded into the registry. When done, via your ICP management console, verify that images starting with mcm are now loaded to <strong>Container Images</strong>.</li>
+</ul>
+<pre><code class="bash">cloudctl catalog load-ppa-archive -a mcm-3.1.1-amd64.tgz --registry mycluster.icp:8500/kube-system
+</code></pre>
+
+<ul>
+<li>You should also see 2 new MCM entries in the catalog</li>
+</ul>
+<p><img alt="" src="../images/mcm-catalog.png" /></p>
+<h2 id="install-multi-cloud-manager">Install Multi-cloud Manager</h2>
+<p>Installing Multi-cloud Manager has many options. Below we will be basically taking the default route. During the installation process it also lets you install the Multi-cloud Manager klusterlet in the same step. We will do that separately.</p>
+<ul>
+<li>Login to your ICP Management Console</li>
+<li>Via the catalog, select the <strong>ibm-mcm-prod</strong> (Multi-cloud Manager) Helm chart</li>
+<li>Click configure</li>
+<li>Specify the following settings<ul>
+<li>For the Helm Release Name, specify any name</li>
+<li>Select <code>kube-system</code> for the Target namespace (very important)</li>
+<li>Check the License checkbox</li>
+<li>The Pod Security Box should already be populated. Don't change it.</li>
+<li>Open the Quick Start parameters twisty<ul>
+<li>Specify <code>mcm</code> as the Multicloud Manager namespace</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Click Install</li>
+</ul>
+<p>Once installed, you should see the helm release in the Helm Releases list. You should also see Multicloud Manager as a top level entry in the hamberger menu</p>
+<p><img alt="" src="../images/mcm-installed.png" /></p>
+<p><img alt="" src="../images/mcm-menu.png" /></p>
+<ul>
+<li>You must also create the <code>mcm</code> namespace that we specified above.</li>
+</ul>
+<pre><code class="bash">cloudctl login -a https://&lt;hub_cluster_host_name&gt;:8443 --skip-ssl-validation
+kubectl create namespace mcm
+</code></pre>
+
+<h2 id="installing-the-multi-cloud-klusterlet-in-your-icp-instance">Installing the Multi-cloud Klusterlet in your ICP instance</h2>
+<p>We need to gather some information to install the Klusterlet (all installations of the MCM Klusterlet require this info).</p>
+<ul>
+<li>Login to the ICP Management console</li>
+<li>Select the user icon, then click <strong>Configure client</strong>. The following kubectl CLI commands are given and they follow this format:</li>
+</ul>
+<pre><code class="bash">kubectl config set-cluster {cluster_name} --server={hub_cluster_url} --insecure-skip-tls-verify=true
+kubectl config set-context {cluster_name}-context --cluster={cluster_name}
+kubectl config set-credentials {cluster_name}-user --token={hub_cluster_token}
+kubectl config set-context {cluster_name}-context --user={cluster_name}-user --namespace=default
+kubectl config use-context {cluster_name}-context
+</code></pre>
+
+<p>There are two pieces of information we need from above. The first is the <strong>hub_cluster_url</strong> (begins with https and ends in port :8001) and the second is the <strong>hub_cluster_token</strong> (long string). Save these for later steps.</p>
+<ul>
+<li>Login to your ICP Management Console</li>
+<li>Via the catalog, select the <strong>ibm-mcmk-prod</strong> (Multi-cloud Manager Klusterlet) Helm chart</li>
+<li>Click configure</li>
+<li>Specify the following settings:<ul>
+<li>For the Helm Release Name, specify any name</li>
+<li>Select <code>kube-system</code> for the Target namespace (very important)</li>
+<li>Check the License checkbox</li>
+<li>The Pod Security Box should already be populated. Don't change it.</li>
+<li>Open the Quick Start parameters twisty<ul>
+<li>Cluster name: specify a name for the cluster as seen by MCM (example: <code>icp-cluster</code> or <code>dev-cluster</code>)</li>
+<li>Cluster namespace: give a unique namespace that MCM will use on the hub cluster for cluster-specific resources (example: <code>mcm-icp</code> or <code>mcm-dev</code>)</li>
+<li>Hub Cluster Kubernetes API server: enter the <strong>hub_cluster_url</strong> obtained above</li>
+<li>Hub Cluster Kubernetes API server token: enter the <strong>hub_cluster_token</strong> obtained above (copy carefully!!)</li>
+</ul>
+</li>
+<li>Open the All Paramenters twisty<ul>
+<li>Scroll down and check the <strong>Enable Automatic Generate Tiller Secret</strong> checkbox</li>
+<li>Scroll down and check the <strong>Deploy to Hub Cluster?</strong> checkbox</li>
+<li>The following fields are simply labels assigned to the cluster and will be used when matching resources to clusters. Enter what you would like.<ul>
+<li>Cluster Cloud Provider</li>
+<li>Kubernetes Vendor</li>
+<li>Cluster Environment Type</li>
+<li>Cluster Region</li>
+<li>Cluster Datacenter</li>
+<li>Cluster Owner</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Click <strong>Local Install</strong></li>
+</ul>
+<p>Once installed, you should see the helm release in the Helm Releases list.</p>
+<p>Also, in the ICP Management Console, click the <strong>Multicloud Manager</strong> entry in the left hamberger menu. Once in the Multicloud Manager, select <strong>Clusters</strong> in the left hamberger menu. You should see your cluster present. Notice the labels that we specified during installation.</p>
+<p><img alt="" src="../images/mcm-clusters.png" /></p>
+<ul>
+<li>Download the MCM CLI. </li>
+</ul>
+<p>The first command downloads the executable <strong>mcmctl</strong> into your current directory. The second one moves it to a directory in your path, like <strong>/usr/local/bin</strong>.</p>
+<pre><code class="bash">docker run -e LICENSE=accept -v $(pwd):/data mycluster.icp:8500/kube-system/mcmctl:3.1.1 cp mcmctl-darwin-amd64 /data/mcmctl
+mv mcmctl /usr/local/bin
+</code></pre>
+
+<h2 id="install-the-multi-cloud-klusterlet-into-an-instance-of-iks">Install the Multi-cloud Klusterlet into an instance of IKS</h2>
+<p>Installing the MCM Klusterlet into Kubernetes clusters other than ICP will be officially supported in a future release (i.e. 3.1.2), but the following will work. These instructions are obtained from <a href="https://hub.docker.com/r/ibmcom/mcm-inception-amd64" target="_blank">https://hub.docker.com/r/ibmcom/mcm-inception-amd64</a>. The instructions install the CE version of the Klusterlet.</p>
+<ul>
+<li>Run the following command to get the cluster directory from the inception container. The result of this command is that a cluster directory is created in your current directory.</li>
+</ul>
+<pre><code class="bash">docker run -v $(pwd):/data -e LICENSE=accept ibmcom/mcm-inception-amd64:3.1.1-ce cp -r cluster /data
+</code></pre>
+
+<ul>
+<li>Obtain the <strong>kubeconfig</strong> zip file from your IKS cluster. Follow these steps:<ul>
+<li>Log in to the IBM Cloud console (cloud.ibm.com) where you have installed IKS</li>
+<li>From your list of resources, select your IKS cluster</li>
+<li>Once on the cluster overview page, select the Access tab</li>
+<li>Down near the bottom of the Access tab is a <strong>download</strong> link. Click the link to download the kubeconfig file (it is a zip file but does not have an extension)</li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="../images/mcm-kubeconfig.png" /></p>
+<ul>
+<li>
+<p>In the cluster directory created in the first step, copy the newly downloaded <strong>kubeconfig</strong> file ontop of the existing kubeconfig file.</p>
+</li>
+<li>
+<p>change directories to the <strong>cluster</strong> directory (if you haven't already)</p>
+</li>
+<li>
+<p>Edit the <strong>config.yaml</strong> file to add values to the following properties:</p>
+<ul>
+<li>cluster-name: the name of the IKS cluster as it will be known by MCM (example: <code>iks-cluster</code>)</li>
+<li>cluster-namespace: the namespace that will be created on the hub cluster for resources specific to the IKS cluster (example: <code>mcm-iks</code>)</li>
+<li>cluster-tags: a list of tags that will be used when assigning resources to this cluster. These are the same tags that we specified when installing the ICP Klusterlet. See the example file below.</li>
+<li>prometheus-ingress-port: leave as 9090</li>
+<li>hub-k8s-endpoint: the <strong>hub_cluster_url</strong> we used when installing the ICP Klusterlet</li>
+<li>hub-k8s-token: the <strong>hub_cluster_token</strong> we used when installing the ICP Klusterlet</li>
+</ul>
+</li>
+<li>
+<p>Example <strong>config.yaml</strong> file
+<img alt="" src="../images/mcm-kubeconfig-example.png" /></p>
+</li>
+<li>
+<p>Run the inception container to install the Klusterlet with the following command.</p>
+</li>
+</ul>
+<pre><code class="bash">docker run --net=host -t -e LICENSE=accept -v &quot;$(pwd)&quot;:/installer/cluster ibmcom/mcm-inception-amd64:3.1.1-ce install-mcmk-on-iks -v
+</code></pre>
+
+<ul>
+<li>Back to your MCM console, you should now see the IKS cluster in your clusters list</li>
+</ul>
+<p><img alt="" src="../images/mcm-clusters2.png" /></p>
+<ul>
+<li>Congratulations. You should now have Multi-cloud Manager installed managing your ICP and IKS clusters!!!</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../addnfs/" class="btn btn-neutral" title="Adding NFS Storage"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/IBM-ICP-CoC/ICP-311-Install" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../addnfs/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

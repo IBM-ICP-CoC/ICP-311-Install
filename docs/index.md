@@ -30,6 +30,7 @@ In this example, we will be installing Docker EE and ICP 3.1.1 Enterprise edtion
 - Dave Weilert (COC Team) was the pioneer who documented the install process and perfected all the pre-requisite steps.
 - Jim Conallen (COC Team) authored the LDAP setup and configuration guide.
 - Tom Watson (Distribution) tested and added comments.
+- Darrell Schrag (Financial Service Markets) authored the Multicloud Manager installation steps.
 
 !!! danger
     _This is **NOT** a replacement for the official <a href="https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/kc_welcome_containers.html" target="_blank">documentation</a> for IBM Cloud Private!  It is intended only to be a learning guide, and uses an arbitrary configuration that may not be appropriate for production use._

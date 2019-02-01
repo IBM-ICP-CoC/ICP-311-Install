@@ -1,6 +1,6 @@
-#Installing and Configuring LDAP
+# Installing and Configuring LDAP
 
-**THANK YOU**  to Jim Conallen, for the following documentation!! 
+_**THANK YOU**  to Jim Conallen for contributing the following documentation!!_
 
 Est. Time: 15 min.
 

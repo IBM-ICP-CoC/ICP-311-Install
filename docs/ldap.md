@@ -136,19 +136,26 @@ Enter in the following values for the fields:
 
 **URL:** `ldap://[IP Address of LDAP VM]:389`
 
-**Base DN:** dc=mycluster, dc=icp
+**Base DN:** dc=mycluster,dc=icp
 
-**Bind DN:** cn=admin, dc=mycluster, dc=icp
+**Bind DN:** cn=admin,dc=mycluster,dc=icp
 
 **Admin password:** admin
 
 !!! warning
-    The value for `admin password` needs to be whatever you set as the admin password for your ICP Cluster.  The default is `admin` but if you changed it during your installation use your password here.
+
+	Make sure you do not have any spaces in the Base DN and Bind DN fields. 
+
+!!! note
 
     The values of `dc` fields above assume you used `mycluster.icp` as the value for `DOMAIN` when you created the LDAP server.  If you used other values, then you need to modify the values for `dc` in these instructions as well.  For example, if you set the `DOMAIN` to `davecluster.dwicp` then the `Base DN` would be `dc=davecluster, dc=dwicp` and the `Bind DN` would be `cn=admin, dc=davecluster, dc=dwicp`.
 
 
 Click the `Test Connection` button to verify that these are the correct values.
+
+!!! warning
+
+	Just so you are aware, the test button does not test full authentication. You may still run into problems with authentication on the login screen even if the test button shows success. 
 
 ![](images/testconnection.png)
 
@@ -164,5 +171,18 @@ From the Manage > Teams menu Create a new team.  Enter in a name for the team (e
 
 ![Create Team](images/createteam.png)
 
+!!! note
+
+	You may need to hit the enter button to get the LDAP query to run. In some earlier versions of ICP the querry was automatic. Seems like 3.1.2 the enter button is needed to exectue the query. 
 
 That's it!
+
+## RESOLVING problems with authentication after LDAP is setup. 
+
+Please see this note in the knowledge center if you find yourself in a situation where you cannot login with any user (even admin) after configuration of LDAP. 
+
+https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.2/troubleshoot/ldap_superadmin.html
+
+!!! note
+
+	I had to delete these two files `federation.xml` and `*-ldap.xml` from the container before I could log in with admin again. 

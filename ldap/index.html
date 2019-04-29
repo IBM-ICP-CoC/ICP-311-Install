@@ -92,6 +92,8 @@
         
             <li><a class="toctree-l3" href="#create-a-team">Create a Team</a></li>
         
+            <li><a class="toctree-l3" href="#resolving-problems-with-authentication-after-ldap-is-setup">RESOLVING problems with authentication after LDAP is setup.</a></li>
+        
         </ul>
     
 
@@ -216,15 +218,22 @@ Enter in the following values for the fields:</p>
 <p><strong>Name:</strong> ldap</p>
 <p><strong>Type:</strong> Custom</p>
 <p><strong>URL:</strong> <code>ldap://[IP Address of LDAP VM]:389</code></p>
-<p><strong>Base DN:</strong> dc=mycluster, dc=icp</p>
-<p><strong>Bind DN:</strong> cn=admin, dc=mycluster, dc=icp</p>
+<p><strong>Base DN:</strong> dc=mycluster,dc=icp</p>
+<p><strong>Bind DN:</strong> cn=admin,dc=mycluster,dc=icp</p>
 <p><strong>Admin password:</strong> admin</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The value for <code>admin password</code> needs to be whatever you set as the admin password for your ICP Cluster.  The default is <code>admin</code> but if you changed it during your installation use your password here.</p>
+<p>Make sure you do not have any spaces in the Base DN and Bind DN fields. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>The values of <code>dc</code> fields above assume you used <code>mycluster.icp</code> as the value for <code>DOMAIN</code> when you created the LDAP server.  If you used other values, then you need to modify the values for <code>dc</code> in these instructions as well.  For example, if you set the <code>DOMAIN</code> to <code>davecluster.dwicp</code> then the <code>Base DN</code> would be <code>dc=davecluster, dc=dwicp</code> and the <code>Bind DN</code> would be <code>cn=admin, dc=davecluster, dc=dwicp</code>.</p>
 </div>
 <p>Click the <code>Test Connection</code> button to verify that these are the correct values.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Just so you are aware, the test button does not test full authentication. You may still run into problems with authentication on the login screen even if the test button shows success. </p>
+</div>
 <p><img alt="" src="../images/testconnection.png" /></p>
 <p>Scroll down and edit the <code>User</code> filter so that it equals: <code>(&amp;(uid=%v)(objectclass=person))</code>.  Then click <code>Save</code>.</p>
 <p><img alt="" src="../images/edituserfilter.png" /></p>
@@ -232,7 +241,18 @@ Enter in the following values for the fields:</p>
 <h2 id="create-a-team">Create a Team</h2>
 <p>From the Manage &gt; Teams menu Create a new team.  Enter in a name for the team (e.g. developers), and click on the Users selection.  Then start typing the name of a user you created in the search field just below.  When you find it check it (to select it) and then select the role for this user in the team.  If you can find the users you know that the LDAP was configured properly.</p>
 <p><img alt="Create Team" src="../images/createteam.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You may need to hit the enter button to get the LDAP query to run. In some earlier versions of ICP the querry was automatic. Seems like 3.1.2 the enter button is needed to exectue the query. </p>
+</div>
 <p>That's it!</p>
+<h2 id="resolving-problems-with-authentication-after-ldap-is-setup">RESOLVING problems with authentication after LDAP is setup.</h2>
+<p>Please see this note in the knowledge center if you find yourself in a situation where you cannot login with any user (even admin) after configuration of LDAP. </p>
+<p>https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.2/troubleshoot/ldap_superadmin.html</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I had to delete these two files <code>federation.xml</code> and <code>*-ldap.xml</code> from the container before I could log in with admin again. </p>
+</div>
               
             </div>
           </div>
